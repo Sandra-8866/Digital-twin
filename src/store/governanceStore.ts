@@ -77,8 +77,113 @@ export interface TelemetryLog {
   type: 'info' | 'success' | 'warning';
 }
 
+export interface RootRegion {
+  id: string;
+  name: string;
+  type: string;
+  csvPath: string;
+}
+
+export interface HierarchicalNode {
+  id: string;
+  name: string;
+  type: string;
+  children?: HierarchicalNode[];
+}
+
+// Centralized Category Colors
+export interface ColorMapping {
+  color: string;
+  bgColor: string;
+  iconName: string;
+}
+
+export const CATEGORY_COLORS: Record<string, ColorMapping> = {
+  country: {
+    color: 'text-orange-600',
+    bgColor: 'bg-orange-50 border-orange-200 text-orange-700',
+    iconName: 'flag'
+  },
+  state: {
+    color: 'text-emerald-600',
+    bgColor: 'bg-emerald-50 border-emerald-200 text-emerald-700',
+    iconName: 'globe'
+  },
+  ut: {
+    color: 'text-teal-600',
+    bgColor: 'bg-teal-50 border-teal-200 text-teal-700',
+    iconName: 'shield'
+  },
+  ministry: {
+    color: 'text-blue-600',
+    bgColor: 'bg-blue-50 border-blue-200 text-blue-700',
+    iconName: 'landmark'
+  },
+  department: {
+    color: 'text-amber-600',
+    bgColor: 'bg-amber-50 border-amber-200 text-amber-700',
+    iconName: 'layers'
+  },
+  office: {
+    color: 'text-slate-600',
+    bgColor: 'bg-slate-50 border-slate-200 text-slate-700',
+    iconName: 'office'
+  },
+  executive: {
+    color: 'text-indigo-600',
+    bgColor: 'bg-indigo-50 border-indigo-200 text-indigo-700',
+    iconName: 'executive'
+  },
+  judiciary: {
+    color: 'text-purple-600',
+    bgColor: 'bg-purple-50 border-purple-200 text-purple-700',
+    iconName: 'judiciary'
+  },
+  constitutional: {
+    color: 'text-rose-600',
+    bgColor: 'bg-rose-50 border-rose-200 text-rose-700',
+    iconName: 'constitutional'
+  }
+};
+
+// Centralized Category Normalizer
+export const normalizeCategory = (category: string, type: string, nodeId: string): string => {
+  const cat = (category || '').toLowerCase();
+  const t = (type || '').toLowerCase();
+  const id = (nodeId || '').toLowerCase();
+
+  if (id === 'india' || cat.includes('country') || t.includes('country')) return 'country';
+  if (id === 'kerala' || cat.includes('state') || t.includes('state')) return 'state';
+  if (id === 'andaman' || id === 'lakshadweep' || cat.includes('union territory') || cat.includes('ut') || cat.includes('territorial') || t.includes('ut') || t.includes('union territory')) return 'ut';
+  
+  if (cat.includes('ministry') || t.includes('ministry')) return 'ministry';
+  if (cat.includes('department') || t.includes('department')) return 'department';
+  if (cat.includes('judiciary') || cat.includes('judicial') || cat.includes('court') || t.includes('judiciary')) return 'judiciary';
+  if (cat.includes('constitutional') || cat.includes('legislature') || cat.includes('election') || cat.includes('electoral') || cat.includes('authority') || cat.includes('oversight')) return 'constitutional';
+  if (cat.includes('executive') || cat.includes('leadership') || cat.includes('administration') || cat.includes('governance')) return 'executive';
+  if (cat.includes('office') || cat.includes('officer') || cat.includes('secretariat') || t.includes('office') || t.includes('agency')) return 'office';
+
+  return 'office'; // default
+};
+
+// Helper function to find path to a node recursively
+export const findHierarchicalPath = (
+  node: HierarchicalNode,
+  targetId: string,
+  currentPath: HierarchicalNode[] = []
+): HierarchicalNode[] | null => {
+  const newPath = [...currentPath, node];
+  if (node.id === targetId) return newPath;
+  if (node.children) {
+    for (const child of node.children) {
+      const path = findHierarchicalPath(child, targetId, newPath);
+      if (path) return path;
+    }
+  }
+  return null;
+};
+
 interface GovernanceState {
-  // Abstraction layers
   nodes: GovNode[];
   services: GovService[];
   workflows: WorkflowStep[];
@@ -92,7 +197,7 @@ interface GovernanceState {
   error: string | null;
 
   // Active navigation settings
-  currentRegion: 'india' | 'Kerala' | 'Andaman & Nicobar Islands' | 'lakshadweep';
+  currentRegion: string;
   viewMode: 'hero' | 'dashboard';
   selectedNodeId: string | null;
   selectedServiceId: string | null;
@@ -100,9 +205,16 @@ interface GovernanceState {
   searchQuery: string;
   logs: TelemetryLog[];
 
+  // Dynamic Root Regions (Level 1)
+  rootRegions: RootRegion[];
+  activeRegionId: string | null; // null represents the selector page
+  activeTreeData: HierarchicalNode | null;
+  visibleCategories: Record<string, boolean>;
+
   // Actions
   initStore: () => Promise<void>;
-  loadRegion: (region: GovernanceState['currentRegion']) => Promise<void>;
+  loadRegion: (regionId: string) => Promise<void>;
+  resetToSelector: () => void;
   setViewMode: (mode: 'hero' | 'dashboard') => void;
   selectNode: (id: string | null) => void;
   selectService: (id: string | null) => void;
@@ -110,6 +222,7 @@ interface GovernanceState {
   setSearchQuery: (q: string) => void;
   addLog: (message: string, type?: TelemetryLog['type']) => void;
   resetNavigation: () => void;
+  toggleCategory: (category: string) => void;
 }
 
 // Robust CSV parser supporting quotes with commas
@@ -183,16 +296,31 @@ export const useGovernanceStore = create<GovernanceState>((set, get) => ({
   searchQuery: '',
   logs: [],
 
+  rootRegions: [],
+  activeRegionId: null,
+  activeTreeData: null,
+  visibleCategories: {
+    country: true,
+    state: true,
+    ut: true,
+    ministry: true,
+    department: true,
+    office: true,
+    executive: true,
+    judiciary: true,
+    constitutional: true
+  },
+
   initStore: async () => {
     set({ loading: true, error: null });
     try {
-      // 1. Fetch all static service relationship CSVs and all region CSVs in parallel
       const fetchCSV = async (url: string) => {
         const res = await fetch(url);
         if (!res.ok) throw new Error(`Could not load CSV: ${url}`);
         return res.text();
       };
 
+      // 1. Fetch static relationship sheets in parallel
       const [
         servicesCSV,
         workflowsCSV,
@@ -201,10 +329,7 @@ export const useGovernanceStore = create<GovernanceState>((set, get) => ({
         locationsCSV,
         lawsCSV,
         outputsCSV,
-        indiaCSV,
-        keralaCSV,
-        andamanCSV,
-        lakshadweepCSV
+        rootHierarchyCSV
       ] = await Promise.all([
         fetchCSV('/Data/SERVICES.csv'),
         fetchCSV('/Data/WORKFLOW STEPS.csv'),
@@ -213,13 +338,10 @@ export const useGovernanceStore = create<GovernanceState>((set, get) => ({
         fetchCSV('/Data/LOCATIONS.csv'),
         fetchCSV('/Data/LAWS.csv'),
         fetchCSV('/Data/OUTPUTS.csv'),
-        fetchCSV('/Data/india.csv'),
-        fetchCSV('/Data/Kerala.csv'),
-        fetchCSV('/Data/Andaman & Nicobar Islands.csv'),
-        fetchCSV('/Data/lakshadweep.csv')
+        fetchCSV('/Data/ROOT_HIERARCHY.csv')
       ]);
 
-      // 2. Parse datasets into structured arrays using normalizer
+      // 2. Parse service relational modules
       const parsedServices = parseCSV(servicesCSV).map((row) => ({
         id: getVal(row, 'ServiceID') || getVal(row, 'Service_ID'),
         name: getVal(row, 'ServiceName') || getVal(row, 'Service_Name'),
@@ -277,105 +399,18 @@ export const useGovernanceStore = create<GovernanceState>((set, get) => ({
         description: getVal(row, 'Description')
       }));
 
-      // Helper function to resolve state root for any node ID
-      const getRootIdForNode = (nodeId: string): string => {
-        const id = nodeId.toUpperCase();
-        if (id.startsWith('KER') || id.startsWith('GOV') || id.startsWith('LEG') || id.startsWith('JUD') || id.startsWith('EXEC') || id.startsWith('ELEC') || id.startsWith('OVS') || id.startsWith('REG') || id.startsWith('DEV') || id.startsWith('ECO') || id.startsWith('LSG') || id.startsWith('PSC') || id.startsWith('LOK') || id.startsWith('HRC') || id.startsWith('PWD') || id.startsWith('HLT')) {
-          return 'KER001';
-        }
-        if (id.startsWith('IND_ANI') || id.startsWith('ND_ANI')) {
-          return 'IND_ANI_001';
-        }
-        if (id.startsWith('IND_LKD') || id.startsWith('IND_POI') || id.startsWith('IND_MHA') || id.startsWith('IND_ADM') || id.startsWith('IND_ADV') || id.startsWith('IND_SEC') || id.startsWith('IND_PSH') || id.startsWith('IND_FIN') || id.startsWith('IND_HOM') || id.startsWith('IND_POL') || id.startsWith('IND_MP') || id.startsWith('IND_PS') || id.startsWith('IND_SRD') || id.startsWith('IND_REV') || id.startsWith('IND_DM') || id.startsWith('IND_COL') || id.startsWith('IND_SDO') || id.startsWith('IND_DC') || id.startsWith('IND_SPA') || id.startsWith('IND_DOP') || id.startsWith('IND_KAV') || id.startsWith('IND_KIL') || id.startsWith('IND_MIN') || id.startsWith('IND_SOD') || id.startsWith('IND_PWR') || id.startsWith('IND_EDU') || id.startsWith('IND_PSA') || id.startsWith('IND_FIS') || id.startsWith('IND_HEA') || id.startsWith('IND_TOU') || id.startsWith('IND_ENV') || id.startsWith('IND_AGR') || id.startsWith('IND_PWD') || id.startsWith('IND_AH') || id.startsWith('IND_IT') || id.startsWith('IND_IND') || id.startsWith('IND_LAB') || id.startsWith('IND_ELE') || id.startsWith('IND_PAO') || id.startsWith('IND_PRS') || id.startsWith('IND_IRB') || id.startsWith('IND_JUD') || id.startsWith('IND_DSC') || id.startsWith('IND_SUB') || id.startsWith('IND_PSU') || id.startsWith('IND_LDC') || id.startsWith('D_DP_001')) {
-          return 'IND_LKD_001';
-        }
-        return 'IND_GOI_001';
-      };
+      // 3. Parse Root Hierarchy Regions (Level 1)
+      const parsedRegions = parseCSV(rootHierarchyCSV).map((row) => ({
+        id: (getVal(row, 'Id') || '').trim(),
+        name: (getVal(row, 'Name') || '').trim(),
+        type: (getVal(row, 'Type') || '').trim(),
+        csvPath: (getVal(row, 'CsvPath') || '').trim()
+      })).filter(r => r.id !== '');
 
-      const parseRegionNodes = (csvText: string): GovNode[] => {
-        const rawRows = parseCSV(csvText);
-        return rawRows.map((row) => {
-          return {
-            id: (getVal(row, 'NodeID') || getVal(row, 'Node_ID') || '').trim(),
-            name: (getVal(row, 'NodeName') || getVal(row, 'Node_Name') || '').trim(),
-            parentRef: (getVal(row, 'ParentNode') || getVal(row, 'ParentID') || getVal(row, 'Parent_Node') || getVal(row, 'Parent_ID') || '').trim(),
-            level: (getVal(row, 'Level') || getVal(row, 'HierarchyLevel') || getVal(row, 'Hierarchy_Level') || '').trim(),
-            legend: (getVal(row, 'Category') || getVal(row, 'Legend') || getVal(row, 'Legend/Classification') || getVal(row, 'Legend / Classification') || '').trim(),
-            type: (getVal(row, 'Type') || getVal(row, 'NodeType') || getVal(row, 'Node_Type') || '').trim(),
-            status: (getVal(row, 'Status') || '').trim(),
-            path: (getVal(row, 'Path') || '').trim(),
-            parentId: null
-          };
-        }).filter(n => 
-          n.id !== '' && 
-          !n.id.toLowerCase().includes('truncated') && 
-          !n.name.toLowerCase().includes('truncated') &&
-          !n.id.toLowerCase().includes('note:') &&
-          !n.name.toLowerCase().includes('note:')
-        );
-      };
+      if (parsedRegions.length === 0) {
+        throw new Error('No regions found in ROOT_HIERARCHY.csv');
+      }
 
-      // 3. Assemble all nodes, starting with virtual country root node
-      const allNodes: GovNode[] = [
-        {
-          id: 'INDIA_ROOT',
-          name: 'India',
-          parentId: null,
-          level: 'L0',
-          legend: 'Country',
-          type: 'Root',
-          status: 'P',
-          path: 'India'
-        },
-        ...parseRegionNodes(indiaCSV),
-        ...parseRegionNodes(keralaCSV),
-        ...parseRegionNodes(andamanCSV),
-        ...parseRegionNodes(lakshadweepCSV)
-      ];
-
-      // 4. Resolve parentIds mapping dynamically, generating virtual parent nodes for truncated nodes
-      const virtualNodesMap = new Map<string, GovNode>();
-
-      allNodes.forEach((node) => {
-        if (node.id === 'INDIA_ROOT') return;
-
-        // Connect file roots directly to INDIA_ROOT
-        if (node.id === 'IND_GOI_001' || node.id === 'KER001' || node.id === 'IND_ANI_001' || node.id === 'IND_LKD_001') {
-          node.parentId = 'INDIA_ROOT';
-          return;
-        }
-
-        const ref = (node as any).parentRef;
-        if (!ref || ref === 'NULL' || ref === 'None' || ref === '-' || ref === '') {
-          node.parentId = getRootIdForNode(node.id);
-        } else {
-          const parent = allNodes.find(n => n.id === ref || n.name === ref);
-          if (parent) {
-            node.parentId = parent.id;
-          } else {
-            // Parent is missing (likely truncated)! Create a virtual placeholder node
-            const virtualId = `VIRTUAL_${ref.replace(/\s+/g, '_')}`;
-            if (!virtualNodesMap.has(virtualId)) {
-              virtualNodesMap.set(virtualId, {
-                id: virtualId,
-                name: ref,
-                parentId: getRootIdForNode(node.id),
-                level: 'L5',
-                legend: 'Department',
-                type: 'Department',
-                status: 'P',
-                path: ''
-              });
-            }
-            node.parentId = virtualId;
-          }
-        }
-      });
-
-      // Combine parsed nodes with virtual placeholders
-      const finalNodes = [...allNodes, ...Array.from(virtualNodesMap.values())];
-
-      // Store in memory
       set({
         services: parsedServices,
         workflows: parsedWorkflows,
@@ -384,52 +419,125 @@ export const useGovernanceStore = create<GovernanceState>((set, get) => ({
         locations: parsedLocations,
         laws: parsedLaws,
         outputs: parsedOutputs,
-        nodes: finalNodes,
+        rootRegions: parsedRegions,
+        activeRegionId: null,
+        activeTreeData: null,
+        selectedNodeId: null,
+        expandedNodeIds: [],
         loading: false,
         logs: [
           {
             id: 'init-1',
             timestamp: new Date().toLocaleTimeString(),
-            message: `Abstraction layer online. ${finalNodes.length} nodes loaded, including ${virtualNodesMap.size} restored structures.`,
+            message: `Root Hierarchy loaded. selector page online.`,
             type: 'success'
           }
         ]
       });
-
-      // 5. Load default region 'india'
-      await get().loadRegion('india');
 
     } catch (err: any) {
       set({ error: err.message || 'Error initializing datasets.', loading: false });
     }
   },
 
-  loadRegion: async (region) => {
-    set({ currentRegion: region, selectedServiceId: null });
-    
-    // Focus navigation on region root node when switching region
-    let activeNodeId: string | null = null;
-    let expanded: string[] = [];
-    if (region === 'india') {
-      activeNodeId = 'INDIA_ROOT';
-      expanded = ['INDIA_ROOT', 'IND_GOI_001'];
-    } else if (region === 'Kerala') {
-      activeNodeId = 'KER001';
-      expanded = ['KER001'];
-    } else if (region === 'Andaman & Nicobar Islands') {
-      activeNodeId = 'IND_ANI_001';
-      expanded = ['IND_ANI_001'];
-    } else if (region === 'lakshadweep') {
-      activeNodeId = 'IND_LKD_001';
-      expanded = ['IND_LKD_001'];
-    }
+  loadRegion: async (regionId) => {
+    set({ loading: true, error: null });
+    try {
+      const { rootRegions } = get();
+      const region = rootRegions.find(r => r.id === regionId);
+      if (!region) throw new Error(`Region ${regionId} not found in root hierarchy.`);
 
-    set({ 
-      selectedNodeId: activeNodeId,
-      expandedNodeIds: expanded
+      // Fetch region CSV dynamically
+      const res = await fetch(region.csvPath);
+      if (!res.ok) throw new Error(`Could not load region dataset: ${region.csvPath}`);
+      const csvText = await res.text();
+
+      // Parse nodes from CSV
+      const rawRows = parseCSV(csvText);
+      const parsedNodes = rawRows.map((row) => {
+        return {
+          id: (getVal(row, 'NodeID') || getVal(row, 'Node_ID') || getVal(row, 'Node ID') || '').trim(),
+          name: (getVal(row, 'NodeName') || getVal(row, 'Node_Name') || getVal(row, 'Node Name') || '').trim(),
+          parentRef: (getVal(row, 'ParentNode') || getVal(row, 'ParentID') || getVal(row, 'Parent_Node') || getVal(row, 'Parent_ID') || getVal(row, 'Parent ID') || '').trim(),
+          level: (getVal(row, 'Level') || getVal(row, 'HierarchyLevel') || getVal(row, 'Hierarchy_Level') || '').trim(),
+          legend: (getVal(row, 'Category') || getVal(row, 'Legend') || getVal(row, 'Legend/Classification') || getVal(row, 'Legend / Classification') || '').trim(),
+          type: (getVal(row, 'Type') || getVal(row, 'NodeType') || getVal(row, 'Node_Type') || '').trim(),
+          status: (getVal(row, 'Status') || '').trim(),
+          path: (getVal(row, 'Path') || '').trim(),
+          parentId: null as string | null
+        };
+      }).filter(n => n.id !== '');
+
+      if (parsedNodes.length === 0) {
+        throw new Error(`No nodes found in region dataset: ${region.name}`);
+      }
+
+      // Identify root node
+      const rootNode = parsedNodes.find(n => 
+        n.level === '1' ||
+        n.level === '0' ||
+        n.level.toLowerCase() === 'l1' ||
+        !n.parentRef || 
+        n.parentRef === 'NULL' || 
+        n.parentRef === 'None' ||
+        n.parentRef === '-' ||
+        !parsedNodes.some(other => other.id === n.parentRef || other.name === n.parentRef)
+      ) || parsedNodes[0];
+
+      // Resolve parentId mappings
+      parsedNodes.forEach((node) => {
+        if (node.id === rootNode.id) return;
+        const parent = parsedNodes.find(n => n.id === node.parentRef || n.name === node.parentRef);
+        if (parent) {
+          node.parentId = parent.id;
+        } else {
+          // Attach to root node directly if parent is not found (orphan fallback)
+          node.parentId = rootNode.id;
+        }
+      });
+
+      // Build hierarchical tree recursively
+      const buildTree = (current: typeof parsedNodes[0]): HierarchicalNode => {
+        const category = normalizeCategory(current.legend, current.type, current.id);
+        const children = parsedNodes.filter(n => n.parentId === current.id);
+        return {
+          id: current.id,
+          name: current.name,
+          type: category,
+          children: children.map(buildTree)
+        };
+      };
+
+      const regionTree = buildTree(rootNode);
+
+      // Data-driven region name assignment
+      const friendlyRegion = region.name || regionId;
+
+      set({
+        nodes: parsedNodes as any, // keep for backward compatibility
+        activeRegionId: regionId,
+        activeTreeData: regionTree,
+        selectedNodeId: rootNode.id, // select root node by default
+        expandedNodeIds: [rootNode.id], // expand root node by default
+        currentRegion: friendlyRegion,
+        loading: false
+      });
+
+      get().addLog(`Switched focus to ${region.name} organization chart.`, 'success');
+
+    } catch (err: any) {
+      set({ error: err.message || 'Error loading region dataset.', loading: false });
+    }
+  },
+
+  resetToSelector: () => {
+    set({
+      activeRegionId: null,
+      activeTreeData: null,
+      selectedNodeId: null,
+      expandedNodeIds: []
     });
-    
-    get().addLog(`Switched focus to ${region} workspace`, 'success');
+    get().addLog('Reset layout to Regional Hierarchy Selector.', 'info');
   },
 
   setViewMode: (mode) => {
@@ -437,26 +545,25 @@ export const useGovernanceStore = create<GovernanceState>((set, get) => ({
   },
 
   selectNode: (id) => {
-    set({ selectedNodeId: id, selectedServiceId: null });
-    if (id) {
+    const { activeRegionId, rootRegions } = get();
+    if (id === null) {
+      set({ selectedNodeId: null });
+      return;
+    }
+
+    if (activeRegionId === null) {
+      // Level 1: user clicked a region in the selector
+      // Load that region's CSV and show its chart!
+      const regionExists = rootRegions.some(r => r.id === id);
+      if (regionExists) {
+        get().loadRegion(id);
+      }
+    } else {
+      // Level 2: user clicked a node card in the active chart
+      set({ selectedNodeId: id });
       const node = get().nodes.find(n => n.id === id);
       if (node) {
-        get().addLog(`Navigated to administrative node: ${node.name} (${node.level})`, 'info');
-        
-        // Ensure parent is expanded so node is visible in sidebar tree
-        const expandPath: string[] = [];
-        let curr = node;
-        while (curr && curr.parentId) {
-          expandPath.push(curr.parentId);
-          const parent = get().nodes.find(n => n.id === curr.parentId);
-          curr = parent!;
-        }
-        
-        if (expandPath.length > 0) {
-          const currentExpanded = new Set(get().expandedNodeIds);
-          expandPath.forEach(pid => currentExpanded.add(pid));
-          set({ expandedNodeIds: Array.from(currentExpanded) });
-        }
+        get().addLog(`Selected node: ${node.name} (${node.level})`, 'info');
       }
     }
   },
@@ -495,10 +602,87 @@ export const useGovernanceStore = create<GovernanceState>((set, get) => ({
   },
 
   resetNavigation: () => {
-    set({ selectedNodeId: null, selectedServiceId: null, searchQuery: '' });
-    // Keep root nodes expanded
-    const rootNodes = get().nodes.filter(n => n.parentId === null);
-    set({ expandedNodeIds: rootNodes.map(n => n.id) });
-    get().addLog('Reset explorer navigation to root overview.', 'info');
+    get().resetToSelector();
+  },
+
+  toggleCategory: (category) => {
+    set((state) => {
+      const nextVisible = {
+        ...state.visibleCategories,
+        [category]: !state.visibleCategories[category]
+      };
+      
+      const isVisible = nextVisible[category];
+      const categoryName = category.toUpperCase();
+      const message = isVisible 
+        ? `Restored ${categoryName} nodes to the organization chart.` 
+        : `Filtered out ${categoryName} nodes. Reorganizing active hierarchy...`;
+      
+      const newLog: TelemetryLog = {
+        id: `log-${Date.now()}-${Math.random()}`,
+        timestamp: new Date().toLocaleTimeString(),
+        message,
+        type: isVisible ? 'success' : 'info'
+      };
+
+      return {
+        visibleCategories: nextVisible,
+        logs: [newLog, ...state.logs].slice(0, 40)
+      };
+    });
   }
 }));
+
+// Pure tree-filtering algorithm for dynamic organization chart reorganization
+export const getFilteredTree = (
+  node: HierarchicalNode | null,
+  visibleCategories: Record<string, boolean>
+): HierarchicalNode | null => {
+  if (!node) return null;
+
+  const isVisible = visibleCategories[node.type] !== false;
+
+  if (isVisible) {
+    const filteredChildren: HierarchicalNode[] = [];
+    
+    if (node.children) {
+      for (const child of node.children) {
+        const processed = getFilteredTree(child, visibleCategories);
+        if (processed) {
+          filteredChildren.push(processed);
+        } else {
+          // If child is hidden, pull up its nearest visible descendants
+          const descendants = getVisibleDescendants(child, visibleCategories);
+          filteredChildren.push(...descendants);
+        }
+      }
+    }
+
+    return {
+      ...node,
+      children: filteredChildren
+    };
+  } else {
+    return null;
+  }
+};
+
+// Recursively gather the closest visible descendant nodes of a hidden node
+export const getVisibleDescendants = (
+  node: HierarchicalNode,
+  visibleCategories: Record<string, boolean>
+): HierarchicalNode[] => {
+  const isVisible = visibleCategories[node.type] !== false;
+  if (isVisible) {
+    const processed = getFilteredTree(node, visibleCategories);
+    return processed ? [processed] : [];
+  } else {
+    const descendants: HierarchicalNode[] = [];
+    if (node.children) {
+      for (const child of node.children) {
+        descendants.push(...getVisibleDescendants(child, visibleCategories));
+      }
+    }
+    return descendants;
+  }
+};

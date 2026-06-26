@@ -1,0 +1,5 @@
+Id,Name,Type,CsvPath
+india,India,country,/Data/india.csv
+kerala,Kerala,state,/Data/Kerala.csv
+andaman,Andaman & Nicobar Islands,ut,/Data/Andaman & Nicobar Islands.csv
+lakshadweep,Lakshadweep,ut,/Data/lakshadweep.csv

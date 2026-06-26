@@ -1,12 +1,8 @@
-import { useEffect, useState, useMemo } from 'react';
+import { useEffect } from 'react';
 import { useGovernanceStore } from './store/governanceStore';
-import LeftSidebar from './components/LeftSidebar';
-import IndiaDirectoryPage from './components/IndiaDirectoryPage';
-import StatePortalPage from './components/StatePortalPage';
-import ServiceDetailsPanel from './components/ServiceDetailsPanel';
-import CitizenServicesList from './components/CitizenServicesList';
 import ThreeHeroCanvas from './components/ThreeHeroCanvas';
-import { ChevronRight, Search, Bell, Landmark, FileText, ArrowRight } from 'lucide-react';
+import HierarchyPage from './components/HierarchyPage';
+import { ArrowRight } from 'lucide-react';
 import './App.css';
 
 function App() {
@@ -16,108 +12,18 @@ function App() {
     error,
     viewMode,
     setViewMode,
-    selectedNodeId,
-    selectedServiceId,
     currentRegion,
     nodes,
     services,
     workflows,
     documents,
-    logs,
-    selectNode,
-    selectService
+    logs
   } = useGovernanceStore();
-
-  const [headerSearch, setHeaderSearch] = useState('');
-  const [showSearchSuggestions, setShowSearchSuggestions] = useState(false);
 
   // Load governance datasets on initial mount
   useEffect(() => {
     initStore();
   }, [initStore]);
-
-  // Construct dynamic breadcrumbs trail
-  const breadcrumbs = useMemo(() => {
-    const trail: { id: string | null; name: string; type?: 'node' | 'service' }[] = [];
-
-    let nodeId = selectedNodeId;
-    if (selectedServiceId && !nodeId) {
-      const service = services.find(s => s.id === selectedServiceId);
-      if (service) {
-        const matchedNode = nodes.find(n => 
-          n.name.toLowerCase() === (service.office || service.department).toLowerCase()
-        );
-        if (matchedNode) nodeId = matchedNode.id;
-      }
-    }
-
-    if (nodeId) {
-      const pathNodes: typeof nodes = [];
-      let current = nodes.find(n => n.id === nodeId);
-      while (current) {
-        pathNodes.unshift(current);
-        const parentId = current.parentId;
-        current = parentId ? nodes.find(n => n.id === parentId) : undefined;
-      }
-
-      pathNodes.forEach((node) => {
-        const name = node.name === 'Andaman & Nicobar Islands' ? 'Andaman & Nicobar' : node.name;
-        trail.push({ id: node.id, name: name, type: 'node' });
-      });
-    }
-
-    if (selectedServiceId) {
-      const service = services.find(s => s.id === selectedServiceId);
-      if (service) {
-        trail.push({ id: null, name: service.name, type: 'service' });
-      }
-    }
-
-    return trail;
-  }, [nodes, services, selectedNodeId, selectedServiceId]);
-
-  const handleCrumbClick = (crumb: typeof breadcrumbs[0]) => {
-    if (crumb.type === 'node' && crumb.id) {
-      if (crumb.id === 'INDIA_ROOT') {
-        useGovernanceStore.setState({ currentRegion: 'india', selectedNodeId: 'INDIA_ROOT', selectedServiceId: null });
-      } else if (crumb.id === 'KER001') {
-        useGovernanceStore.setState({ currentRegion: 'Kerala', selectedNodeId: 'KER001', selectedServiceId: null });
-      } else if (crumb.id === 'IND_ANI_001') {
-        useGovernanceStore.setState({ currentRegion: 'Andaman & Nicobar Islands', selectedNodeId: 'IND_ANI_001', selectedServiceId: null });
-      } else if (crumb.id === 'IND_LKD_001') {
-        useGovernanceStore.setState({ currentRegion: 'lakshadweep', selectedNodeId: 'IND_LKD_001', selectedServiceId: null });
-      } else {
-        selectNode(crumb.id);
-      }
-    }
-  };
-
-  // Header Search Results (Filters through both hierarchy nodes and citizen services)
-  const headerSearchResults = useMemo(() => {
-    if (headerSearch.trim() === '') return [];
-    
-    const matchedNodes = nodes
-      .filter(n => n.name.toLowerCase().includes(headerSearch.toLowerCase()))
-      .slice(0, 4)
-      .map(n => ({ id: n.id, name: n.name, type: 'node', label: n.type || 'Department/Office' }));
-
-    const matchedServices = services
-      .filter(s => s.name.toLowerCase().includes(headerSearch.toLowerCase()))
-      .slice(0, 4)
-      .map(s => ({ id: s.id, name: s.name, type: 'service', label: 'Citizen Service' }));
-
-    return [...matchedNodes, ...matchedServices];
-  }, [nodes, services, headerSearch]);
-
-  const handleHeaderSuggestionClick = (item: typeof headerSearchResults[0]) => {
-    if (item.type === 'node') {
-      selectNode(item.id);
-    } else {
-      selectService(item.id);
-    }
-    setHeaderSearch('');
-    setShowSearchSuggestions(false);
-  };
 
   // 1. Loading Screen
   if (loading && viewMode === 'hero') {
@@ -348,121 +254,7 @@ function App() {
 
   // 4. Unified Dashboard Layout Mode
   return (
-    <div className="min-h-screen bg-white text-slate-900 flex font-sans select-none relative">
-      {/* Fixed Left Sidebar */}
-      <LeftSidebar />
-
-      {/* Main Content Area */}
-      <div className="flex-1 flex flex-col min-w-0 min-h-screen pl-64 bg-white relative">
-        
-        {/* Saffron-White-Green Flag Ribbon */}
-        <div className="gov-ribbon sticky top-0 z-20"></div>
-
-        {/* Top Header Bar */}
-        <header className="h-16 bg-white border-b border-slate-100 flex items-center justify-between px-8 sticky top-[4px] z-10 shadow-2xs">
-          
-          {/* Breadcrumbs Trail */}
-          <nav className="flex items-center gap-1.5 text-[11px] text-slate-400 font-bold overflow-x-auto no-scrollbar pr-4">
-            {breadcrumbs.map((crumb, idx) => (
-              <div key={`${crumb.id}-${idx}`} className="flex items-center gap-1.5 flex-shrink-0">
-                {idx > 0 && <ChevronRight className="w-3.5 h-3.5 text-slate-300" />}
-                <button
-                  onClick={() => handleCrumbClick(crumb)}
-                  disabled={!crumb.id}
-                  className={`hover:text-[#ff9933] transition ${
-                    idx === breadcrumbs.length - 1 ? 'text-[#0f2942] font-black' : ''
-                  } ${crumb.id ? 'cursor-pointer' : 'cursor-default'}`}
-                >
-                  {crumb.name}
-                </button>
-              </div>
-            ))}
-          </nav>
-
-          {/* Search bar & notification */}
-          <div className="flex items-center gap-4 relative">
-            <div className="relative w-64 md:w-80">
-              <input
-                type="text"
-                placeholder="Search services, departments..."
-                value={headerSearch}
-                onChange={(e) => {
-                  setHeaderSearch(e.target.value);
-                  setShowSearchSuggestions(true);
-                }}
-                onFocus={() => setShowSearchSuggestions(true)}
-                className="w-full bg-slate-50 border border-slate-200/80 hover:border-slate-300 focus:border-indigo-500/60 focus:bg-white rounded-xl px-3 py-2 pl-9 text-xs text-slate-800 placeholder-slate-400 focus:outline-none transition shadow-3xs"
-              />
-              <Search className="absolute left-3.5 top-2.5 w-3.5 h-3.5 text-slate-400" />
-
-              {/* Suggestions dropdown */}
-              {showSearchSuggestions && headerSearch.trim() !== '' && (
-                <div className="absolute top-full right-0 left-0 mt-1 bg-white border border-slate-200 rounded-xl shadow-lg z-50 flex flex-col p-1.5 max-h-64 overflow-y-auto">
-                  {headerSearchResults.length === 0 ? (
-                    <div className="text-[10px] text-slate-400 italic p-3 text-center">No matches found.</div>
-                  ) : (
-                    headerSearchResults.map((res, i) => (
-                      <div
-                        key={i}
-                        onClick={() => handleHeaderSuggestionClick(res)}
-                        className="flex justify-between items-center px-3 py-2 rounded-lg hover:bg-slate-50 cursor-pointer transition text-left"
-                      >
-                        <div className="min-w-0 flex items-center gap-2">
-                          {res.type === 'node' ? (
-                            <Landmark className="w-3.5 h-3.5 text-indigo-500 flex-shrink-0" />
-                          ) : (
-                            <FileText className="w-3.5 h-3.5 text-blue-500 flex-shrink-0" />
-                          )}
-                          <div className="min-w-0">
-                            <span className="text-xs font-bold text-slate-800 block truncate leading-none mb-0.5">{res.name}</span>
-                            <span className="text-[8.5px] text-slate-400 uppercase tracking-widest font-semibold">{res.label}</span>
-                          </div>
-                        </div>
-                        <ArrowRight className="w-3.5 h-3.5 text-slate-400 flex-shrink-0 ml-2" />
-                      </div>
-                    ))
-                  )}
-                </div>
-              )}
-            </div>
-
-            {/* Notification Bell */}
-            <button className="p-2 text-slate-400 hover:text-slate-600 rounded-xl hover:bg-slate-100 transition cursor-pointer relative">
-              <Bell className="w-4.5 h-4.5" />
-              <span className="absolute w-1.5 h-1.5 bg-[#ff9933] rounded-full top-2 right-2"></span>
-            </button>
-          </div>
-        </header>
-
-        {/* Dynamic Pages Area */}
-        <main className="flex-grow p-8 overflow-y-auto z-10">
-          <div className="max-w-7xl mx-auto w-full h-full flex flex-col lg:flex-row gap-8 items-start">
-            
-            {/* Left Content Area (Flex-Grow) */}
-            <div className="flex-grow flex-1 min-w-0 w-full">
-              {selectedServiceId ? (
-                <ServiceDetailsPanel />
-              ) : currentRegion === 'india' && (!selectedNodeId || selectedNodeId === 'INDIA_ROOT') ? (
-                <IndiaDirectoryPage />
-              ) : (
-                <StatePortalPage />
-              )}
-            </div>
-
-            {/* Right Sidebar: Quick Access Citizen Services */}
-            <div className="w-full lg:w-80 flex-shrink-0">
-              <CitizenServicesList />
-            </div>
-
-          </div>
-        </main>
-
-        {/* Global Footer */}
-        <footer className="w-full py-3.5 text-center text-[10px] text-slate-400 border-t border-slate-100 bg-white font-semibold tracking-wide select-none z-10">
-          National e-Governance Portal &bull; Republic of India
-        </footer>
-      </div>
-    </div>
+    <HierarchyPage />
   );
 }
 
