@@ -1,0 +1,41 @@
+﻿Output_ID,Service_ID,Output_Name,Description
+OUT001,S001,Registered Sale Deed,Officially registered ownership document
+OUT002,S001,Updated Land Record,Ownership updated in land records database
+OUT003,S001,Registration Certificate,Proof of successful registration
+,,,
+OUT101,S002,Trade License Certificate,Official permission to operate business
+OUT102,S002,License Number,Unique business license identifier
+,,,
+OUT201,S003,Building Permit Certificate,Official approval for construction activity
+OUT202,S003,Permit Number,Unique building permit identifier
+OUT203,S003,Approved Building Plan,Authorized construction plan for execution
+,,,
+OUT201,S004,Certificate of Incorporation,Official proof of company registration
+OUT202,S004,Corporate Identification Number (CIN),Unique company identification number
+,,,
+OUT301,S005,GST Registration Certificate,Official proof of GST registration
+OUT302,S005,GSTIN,Unique Goods and Services Tax Identification Number
+,,,
+OUT401,S006,UDYAM Registration Certificate,Official MSME registration certificate
+OUT402,S006,UDYAM Registration Number,Unique MSME identification number
+,,,
+OUT501,S007,Fire NOC Certificate,Official fire safety clearance certificate
+OUT502,S007,Inspection Report,Fire safety inspection findings and recommendations
+OUT601,S008,Pollution Clearance Certificate,Official environmental clearance approval
+OUT602,S008,Environmental Compliance Report,Assessment report of environmental compliance
+OUT701,S009,Factory License Certificate,Official authorization to operate a factory
+OUT702,S009,Factory Registration Number,Unique factory registration identifier
+OUT801,S010,Electricity Connection Approval,Official approval for electricity service
+OUT802,S010,Consumer Number,Unique electricity consumer identifier
+OUT803,S010,Active Electricity Connection,Operational electricity service connection
+OUT901,S011,Water Connection Approval,Official approval for water supply
+OUT902,S011,Consumer ID,Unique water consumer identifier
+OUT903,S011,Active Water Connection,Operational water supply connection
+,,,
+OUT1001,S012,FSSAI License,Official food business license
+OUT1002,S012,License Number,Unique identification number
+OUT1003,S012,Compliance Certificate,Proof of food safety compliance
+,,,
+OUT1101,S013,Registration Certificate,Official shop/establishment registration
+OUT1102,S013,Registration Number,Unique business identifier
+OUT1103,S013,Compliance Certificate,Legal compliance proof

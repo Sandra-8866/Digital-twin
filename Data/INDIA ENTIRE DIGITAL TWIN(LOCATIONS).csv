@@ -1,0 +1,54 @@
+﻿Location_ID,Service_ID,Office_Name,Office_Type,Level
+LOC001,S001,Sub Registrar Office,Registration Office,Local
+LOC002,S001,Village Office,Revenue Office,Local
+LOC003,S001,Treasury Office,Finance Office,State
+LOC004,S001,e-Registration Portal,Online Service,Digital
+,,,,
+LOC101,S002,Municipality Office,Local Government Office,Local
+LOC102,S002,Panchayat Office,Local Government Office,Local
+LOC103,S002,Business Premises,Service Location,Local
+LOC104,S002,Treasury Office,Finance Office,State
+LOC105,S002,e-Governance Portal,Online Service,Digital
+,,,,
+LOC201,S003,Municipality Office,Local Government Office,Local
+LOC202,S003,Panchayat Office,Local Government Office,Local
+LOC203,S003,Engineering Section,Technical Review Office,Local
+LOC204,S003,Property Site,Inspection Location,Local
+LOC205,S003,e-Governance Portal,Online Service,Digital
+,,,,
+LOC201,S004,Registrar of Companies,Central Government Office,National
+LOC202,S004,MCA Portal,Online Service,Digital
+,,,,
+LOC301,S005,GST Department Office,Tax Administration Office,State
+LOC302,S005,GST Portal,Online Service,Digital
+,,,,
+LOC401,S006,MSME Development Office,Government Office,State
+LOC402,S006,UDYAM Portal,Online Service,Digital
+,,,,
+LOC501,S007,District Fire Office,Fire Safety Office,District
+LOC502,S007,Fire Department Portal,Online Service,Digital
+LOC503,S007,Business Premises,Inspection Location,Local
+,,,,
+LOC601,S008,Regional Pollution Control Office,Environmental Office,Regional
+LOC602,S008,KSPCB Portal,Online Service,Digital
+LOC603,S008,Business Premises,Inspection Location,Local
+,,,,
+LOC701,S009,District Factories Office,Regulatory Office,District
+LOC702,S009,Factory Licensing Portal,Online Service,Digital
+LOC703,S009,Factory Premises,Inspection Location,Local
+,,,,
+LOC801,S010,KSEB Section Office,Utility Office,Local
+LOC802,S010,KSEB Portal,Online Service,Digital
+LOC803,S010,Consumer Premises,Service Location,Local
+,,,,
+LOC901,S011,KWA Section Office,Utility Office,Local
+LOC902,S011,KWA Portal,Online Service,Digital
+LOC903,S011,Consumer Premises,Service Location,Local
+,,,,
+LOC1001,S012,FSSAI Portal,Online Service,Digital
+LOC1002,S012,District Food Safety Office,Regulatory Office,District
+LOC1003,S012,Business Premises,Service Location,Local
+,,,,
+LOC1101,S013,Labour Portal,Online Service,Digital
+LOC1102,S013,Labour Office,Government Office,District
+LOC1103,S013,Business Premises,Service Location,Local

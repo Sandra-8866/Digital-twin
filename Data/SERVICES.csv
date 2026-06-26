@@ -1,0 +1,14 @@
+﻿Service_ID,Service_Name,Department,Office,Description
+S001,Property Registration,Revenue Department,Sub Registrar Office,Registration of ownership transfer for land/property transactions
+S002,Trade License,Local Self Government Department (LSGD),Municipality / Panchayat,License required to legally operate a business establishment
+S003,Building Permit,Local Self Government Department (LSGD),Municipality / Panchayat,"Approval required for construction, renovation, or extension of buildings"
+S004,Company Registration,Ministry of Corporate Affairs (MCA),Registrar of Companies (ROC),"Registration of a company as a legal business entity under the Companies Act, 2013"
+S005,GST Registration,Central Board of Indirect Taxes and Customs (CBIC),GST Portal,Registration required for businesses liable to collect and remit Goods and Services Tax (GST)
+S006,UDYAM Registration,"Ministry of Micro, Small and Medium Enterprises (MSME)",UDYAM Portal,"Registration of Micro, Small and Medium Enterprises (MSMEs) for government recognition and benefits"
+S007,Fire NOC,Fire and Rescue Services Department,District Fire Office,No Objection Certificate issued after verifying compliance with fire safety regulations
+S008,Pollution Clearance,Kerala State Pollution Control Board (KSPCB),Regional Pollution Control Office,"Environmental approval required for businesses and industries that may impact air, water, or land resources"
+S009,Factory License,Department of Factories and Boilers,District Factories Office,License required for operating a factory under applicable factory safety regulations
+S010,Electricity Connection,Kerala State Electricity Board (KSEB),Electrical Section Office,"Service for obtaining a new electricity connection for residential, commercial, or industrial premises"
+S011,Water Connection,Kerala Water Authority (KWA),Water Supply Section Office,"Service for obtaining a new water connection for residential, commercial, or industrial premises"
+S012,FSSAI License,Food Safety and Standards Authority of India (FSSAI),State Food Safety Department,License required for food business operators to ensure food safety compliance
+S013,Shop & Establishment Registration,Labour Department,Labour Office,"Registration of shops, commercial establishments, and workplaces under labour law"

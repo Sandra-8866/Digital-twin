@@ -1,0 +1,44 @@
+﻿Officer_ID,Service_ID,Officer_Role,Office,Responsibility
+O001,S001,Clerk,Sub Registrar Office,Verify submitted documents
+O002,S001,Village Officer,Village Office,Conduct field/property verification
+O003,S001,Sub Registrar,Sub Registrar Office,Final approval and registration
+O004,S001,Treasury Officer,Treasury Office,Stamp duty and fee validation
+O101,S002,Clerk,Municipality Office,Verify submitted documents
+O102,S002,Health Inspector,Municipality Health Department,Conduct site inspection
+O103,S002,Field Officer,Municipality Office,Verify business premises
+O104,S002,Municipal Secretary,Municipality Office,Final approval and issuance
+O201,S003,Clerk,Municipality Office,Verify submitted documents
+O202,S003,Engineer,Engineering Section,Technical review of building plans
+O203,S003,Overseer,Engineering Section,Conduct site inspection
+O204,S003,Municipal Secretary,Municipality Office,Final approval and permit issuance
+O201,S004,ROC Officer,Registrar of Companies,Verify company registration documents
+O202,S004,Registrar of Companies,Registrar of Companies,Approve company incorporation
+O203,S004,MCA System Administrator,MCA Portal,Generate incorporation certificate
+O301,S005,GST Officer,GST Department,Verify GST application
+O302,S005,Assistant Commissioner,GST Department,Review and approve GST registration
+O303,S005,GST System Administrator,GST Portal,Generate GSTIN and certificate
+O401,S006,MSME Registration Officer,MSME Department,Monitor registration process
+O402,S006,UDYAM System Administrator,UDYAM Portal,Generate registration certificate
+O501,S007,Fire Officer,District Fire Office,Verify documents and conduct inspection
+O502,S007,Station Officer,Fire Station,Review compliance report
+O503,S007,Divisional Fire Officer,Fire Department,Approve Fire NOC application
+O601,S008,Environmental Engineer,Regional Pollution Control Office,Verify documents and conduct inspections
+O602,S008,Pollution Control Officer,KSPCB Office,Assess environmental compliance
+O603,S008,Regional Officer,KSPCB Office,Approve pollution clearance application
+O701,S009,Inspector of Factories,District Factories Office,Verify documents and conduct inspection
+O702,S009,Deputy Chief Inspector,Factories Department,Review compliance reports
+O703,S009,Chief Inspector of Factories,Factories Department,Approve factory license
+O801,S010,Assistant Engineer,KSEB Section Office,Verify application and prepare estimate
+O802,S010,Overseer,KSEB Section Office,Conduct site inspection
+O803,S010,Assistant Executive Engineer,KSEB Office,Approve electricity connection
+O804,S010,Technical Staff,KSEB Field Unit,Install service connection
+O901,S011,Junior Engineer,KWA Section Office,Verify application
+O902,S011,Assistant Engineer,KWA Section Office,Site inspection & estimate
+O903,S011,Executive Engineer,KWA Office,Approve connection
+O904,S011,Technical Staff,KWA Field Unit,Install connection
+O1001,S012,Food Safety Officer,District Office,Inspection & verification
+O1002,S012,Designated Officer,State Office,License approval
+O1003,S012,Assistant Commissioner,State Office,Supervisory approval
+O1101,S013,Labour Inspector,Labour Office,Inspection & compliance
+O1102,S013,Assistant Labour Officer,Labour Office,Registration approval
+O1103,S013,Labour Commissioner,State Office,Oversight

@@ -1,0 +1,85 @@
+﻿Document_ID,Service_ID,Document_Name,Mandatory,Purpose
+D001,S001,Aadhaar Card,Yes,Identity Verification
+D002,S001,PAN Card,Yes,Tax Compliance
+D003,S001,Sale Deed,Yes,Ownership Transfer Proof
+D004,S001,Property Tax Receipt,Yes,Tax Clearance Verification
+D005,S001,Encumbrance Certificate,Yes,Verify Property Liabilities
+D006,S001,Passport Size Photograph,No,Applicant Record
+,,,,
+D101,S002,Aadhaar Card,Yes,Identity Verification
+D102,S002,PAN Card,Yes,Tax Identification
+D103,S002,Business Address Proof,Yes,Verify Business Location
+D104,S002,Rental Agreement / Ownership Proof,Yes,Proof of Premises
+D105,S002,Passport Size Photograph,Yes,Applicant Record
+D106,S002,NOC (if applicable),No,Regulatory Compliance
+,,,,
+D201,S003,Aadhaar Card,Yes,Identity Verification
+D202,S003,Ownership Proof,Yes,Verify Land Ownership
+D203,S003,Building Plan,Yes,Technical Approval Review
+D204,S003,Site Plan / Sketch,Yes,Verify Building Layout
+D205,S003,Land Tax Receipt,Yes,Tax Clearance Verification
+D206,S003,Structural Stability Certificate,Conditional,Safety Compliance
+D207,S003,NOC from Relevant Authorities,Conditional,Regulatory Compliance
+,,,,
+D201,S004,Aadhaar Card of Directors,Yes,Identity Verification
+D202,S004,PAN Card of Directors,Yes,Tax Identification
+D203,S004,Address Proof of Directors,Yes,Residence Verification
+D204,S004,Registered Office Address Proof,Yes,Company Address Verification
+D205,S004,Memorandum of Association (MOA),Yes,Company Constitution
+D206,S004,Articles of Association (AOA),Yes,Internal Governance Rules
+,,,,
+D301,S005,PAN Card,Yes,Business Tax Identification
+D302,S005,Aadhaar Card,Yes,Identity Verification
+D303,S005,Business Address Proof,Yes,Verify Business Location
+D304,S005,Bank Account Proof,Yes,Financial Verification
+D305,S005,Certificate of Incorporation,Yes,Proof of Business Registration
+D306,S005,Passport Size Photograph,No,Applicant Record
+,,,,
+D401,S006,Aadhaar Card,Yes,Identity Verification
+D402,S006,PAN Card,Yes,Tax Identification
+D403,S006,Business Address Details,Yes,Enterprise Location Verification
+D404,S006,Bank Account Details,Yes,Financial Verification
+,,,,
+D501,S007,Building Plan,Yes,Verify building layout
+D502,S007,Building Permit,Yes,Verify approved construction
+D503,S007,Ownership / Lease Document,Yes,Proof of premises ownership
+D504,S007,Fire Safety System Details,Yes,Verify installed safety systems
+D505,S007,Identity Proof,Yes,Applicant verification
+,,,,
+D601,S008,Project Report,Yes,Describe proposed business activity
+D602,S008,Site Layout Plan,Yes,Verify facility layout
+D603,S008,Building Permit,Yes,Verify approved construction
+D604,S008,Ownership / Lease Document,Yes,Proof of premises ownership
+D605,S008,Environmental Management Plan,Yes,Demonstrate pollution control measures
+D606,S008,Identity Proof,Yes,Applicant verification
+,,,,
+D701,S009,Company Registration Certificate,Yes,Verify legal entity
+D702,S009,Building Permit,Yes,Verify approved construction
+D703,S009,Site Layout Plan,Yes,Verify factory layout
+D704,S009,Fire NOC,Yes,Verify fire safety compliance
+D705,S009,Pollution Clearance,Yes,Verify environmental compliance
+D706,S009,Identity Proof,Yes,Applicant verification
+,,,,
+D801,S010,Identity Proof,Yes,Applicant verification
+D802,S010,Address Proof,Yes,Location verification
+D803,S010,Ownership / Lease Document,Yes,Proof of premises ownership
+D804,S010,Building Permit,Yes,Verify approved construction
+D805,S010,Wiring Completion Certificate,Yes,Electrical safety verification
+,,,,
+D901,S011,Identity Proof,Yes,Applicant verification
+D902,S011,Address Proof,Yes,Location verification
+D903,S011,Ownership / Lease Document,Yes,Property proof
+D904,S011,Building Permit,Yes,Construction approval
+D905,S011,Site Plan,Yes,Water pipeline planning
+,,,,
+D1001,S012,Identity Proof,Yes,Applicant identity
+D1002,S012,Business Registration,Yes,Business validation
+D1003,S012,Premises Address Proof,Yes,Location verification
+D1004,S012,Food Safety Plan,Yes,Compliance assurance
+D1005,S012,Equipment List,No,Operational details
+,,,,
+D1101,S013,Identity Proof,Yes,Employer identification
+D1102,S013,Address Proof,Yes,Establishment location
+D1103,S013,Business Registration Proof,Yes,Legal business validation
+D1104,S013,Employee Details,Yes,Workforce information
+D1105,S013,Rent Agreement,No,Premises proof

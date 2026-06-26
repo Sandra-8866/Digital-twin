@@ -1,0 +1,45 @@
+﻿Law_ID,Service_ID,Law_Name,Purpose
+L001,S001,"Registration Act, 1908",Governs registration of documents
+L002,S001,Kerala Stamp Act,Governs stamp duty payment
+L003,S001,"Transfer of Property Act, 1882",Governs property ownership transfer
+L004,S001,"Indian Stamp Act, 1899",Stamp duty framework
+,,,
+L101,S002,Kerala Municipality Act,Governs municipal licensing
+L102,S002,Kerala Panchayat Raj Act,Governs panchayat licensing
+L103,S002,Shops and Commercial Establishments Act,Regulates business establishments
+,,,
+L201,S003,Kerala Municipality Building Rules,Regulates building construction and permit approval
+L202,S003,Kerala Panchayat Building Rules,Regulates building permits in Panchayat areas
+L203,S003,Kerala Town and Country Planning Act,Governs land use and development planning
+L204,S003,National Building Code of India,Provides technical and safety standards for construction
+,,,
+L201,S004,"Companies Act, 2013",Governs company incorporation and operation
+L202,S004,"Companies (Incorporation) Rules, 2014",Defines incorporation procedures
+L203,S004,"Information Technology Act, 2000",Enables electronic filing and digital signatures
+L301,S005,"Central Goods and Services Tax Act, 2017",Governs GST registration and compliance
+L302,S005,"Integrated Goods and Services Tax Act, 2017",Governs inter-state GST transactions
+L303,S005,"Kerala State Goods and Services Tax Act, 2017",Governs GST implementation in Kerala
+L401,S006,"Micro, Small and Medium Enterprises Development Act, 2006",Governs MSME registration and benefits
+L402,S006,UDYAM Registration Guidelines,Defines MSME registration procedures
+L501,S007,Kerala Fire Force Act,Governs fire safety requirements
+L502,S007,National Building Code of India,Defines fire safety standards
+L503,S007,Kerala Municipality Building Rules,Fire safety provisions for buildings
+L601,S008,"Water (Prevention and Control of Pollution) Act, 1974",Regulates water pollution control
+L602,S008,"Air (Prevention and Control of Pollution) Act, 1981",Regulates air pollution control
+L603,S008,"Environment (Protection) Act, 1986",Provides environmental protection framework
+L604,S008,Kerala State Pollution Control Board Regulations,Governs environmental approvals in Kerala
+L701,S009,"Factories Act, 1948",Governs factory safety and operations
+L702,S009,"Occupational Safety, Health and Working Conditions Code, 2020",Regulates workplace safety
+L703,S009,Kerala Factories Rules,Defines factory licensing procedures in Kerala
+L801,S010,"Electricity Act, 2003",Governs electricity supply and connections
+L802,S010,Kerala Electricity Supply Code,Defines procedures for electricity connections
+L803,S010,Central Electricity Authority Regulations,Governs electrical safety standards
+L901,S011,Kerala Water Supply & Sewerage Act,Governs water supply services
+L902,S011,Municipal Water Supply Regulations,Defines distribution rules
+L903,S011,Public Health Standards Act,Ensures safe drinking water supply
+L1001,S012,"Food Safety and Standards Act, 2006",Governs food safety regulations
+L1002,S012,FSSAI Licensing Regulations,Defines licensing process
+L1003,S012,Hygiene & Sanitation Rules,Ensures food safety compliance
+L1101,S013,Shops and Establishments Act,Governs workplace regulation
+L1102,S013,Labour Welfare Act,Ensures worker rights
+L1103,S013,Minimum Wages Act,Regulates wage standards

@@ -1,0 +1,98 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap');
+@import "tailwindcss";
+
+@theme {
+  --font-sans: 'Inter', system-ui, -apple-system, sans-serif;
+  --font-heading: 'Outfit', system-ui, -apple-system, sans-serif;
+  --font-mono: 'JetBrains Mono', monospace;
+
+  /* Official Government Portal Colors */
+  --color-gov-bg: #ffffff;
+  --color-gov-card: #ffffff;
+  --color-gov-border: #e2e8f0;
+  
+  --color-primary: #0f2942; /* Navy Blue */
+  --color-accent-saffron: #ff9933; /* Saffron */
+  --color-accent-green: #138808; /* Green */
+}
+
+/* Custom Base Styles */
+html, body {
+  background-color: #ffffff;
+  color: #0f2942;
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  min-height: 100vh;
+  font-family: var(--font-sans);
+  overflow-x: hidden;
+}
+
+#root {
+  width: 100% !important;
+  max-width: 100% !important;
+  min-height: 100vh;
+  margin: 0 !important;
+  padding: 0 !important;
+  border-inline: none !important;
+  text-align: left !important;
+  display: flex;
+  flex-direction: column;
+  background-color: #ffffff;
+}
+
+/* Government Flag Ribbon */
+.gov-ribbon {
+  background: linear-gradient(90deg, #ff9933 0%, #ff9933 33.33%, #f8fafc 33.33%, #f8fafc 66.66%, #138808 66.66%, #138808 100%);
+  height: 4px;
+  width: 100%;
+}
+
+/* Ashoka Chakra Background Watermark */
+.ashoka-watermark-bg {
+  position: relative;
+}
+
+.ashoka-watermark-bg::before {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) rotate(0deg);
+  width: min(85vw, 600px);
+  height: min(85vw, 600px);
+  background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" fill="none" stroke="%230f2942" stroke-width="0.3" opacity="0.015"><circle cx="50" cy="50" r="45"/><circle cx="50" cy="50" r="8"/><line x1="50" y1="5" x2="50" y2="95"/><line x1="5" y1="50" x2="95" y2="50"/><line x1="18.2" y1="18.2" x2="81.8" y2="81.8"/><line x1="18.2" y1="81.8" x2="81.8" y2="18.2"/><line x1="32.7" y1="8.4" x2="67.3" y2="91.6"/><line x1="8.4" y1="32.7" x2="91.6" y2="67.3"/><line x1="8.4" y1="67.3" x2="91.6" y2="32.7"/><line x1="32.7" y1="91.6" x2="67.3" y2="8.4"/><line x1="41.7" y1="5.9" x2="58.3" y2="94.1"/><line x1="5.9" y1="41.7" x2="94.1" y2="58.3"/><line x1="5.9" y1="58.3" x2="94.1" y2="41.7"/><line x1="41.7" y1="94.1" x2="58.3" y2="5.9"/><line x1="25.2" y1="12.5" x2="74.8" y2="87.5"/><line x1="12.5" y1="25.2" x2="87.5" y2="74.8"/><line x1="12.5" y1="74.8" x2="87.5" y2="25.2"/><line x1="25.2" y1="87.5" x2="74.8" y2="12.5"/><line x1="10.4" y1="59.3" x2="89.6" y2="40.7"/><line x1="40.7" y1="89.6" x2="59.3" y2="10.4"/><line x1="59.3" y1="89.6" x2="40.7" y2="10.4"/><line x1="10.4" y1="40.7" x2="89.6" y2="59.3"/></svg>');
+  background-size: contain;
+  background-repeat: no-repeat;
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* Scrollbar Customization */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: #ffffff;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #e2e8f0;
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #cbd5e1;
+}
+
+/* Hide scrollbars */
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+

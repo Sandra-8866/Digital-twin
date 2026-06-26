@@ -1,0 +1,50 @@
+Created At: 2026-06-26T09:08:38Z
+Completed At: 2026-06-26T09:08:39Z
+File Path: `file:///c:/Users/DELL/Desktop/Digital%20twin/Data/Kerala.csv`
+Total Lines: 881
+Total Bytes: 64511
+Showing lines 1 to 800
+The following code has been modified to include a line number before every line, in the format: <line_number>: <original_line>. Please note that any changes targeting the original code should remove the line number, colon, and leading space.
+1: Node_ID,Node_Name,Parent_Node,Level,Category,Type,Status
+2: KER001,State of Kerala,NULL,L1,Root,Government,P
+3: GOV001,Governor of Kerala,State of Kerala,L2,Constitutional Authority,Office,D
+4: LEG001,Kerala Legislative Assembly,State of Kerala,L2,Legislature,Institution,P
+5: JUD001,Kerala High Court,State of Kerala,L2,Judiciary,Institution,P
+6: EXEC001,State Executive System,State of Kerala,L2,Executive,System,P
+7: ELEC001,State Election Commission,State of Kerala,L2,Electoral System,Constitutional Body,P
+8: OVS001,Oversight & Accountability System,State of Kerala,L2,Oversight,System,P
+9: REG001,Policy & Regulatory System,State of Kerala,L2,Regulatory,System,P
+10: DEV001,Development & Planning System,State of Kerala,L2,Planning,System,P
+11: ECO001,Economic Implementation System,State of Kerala,L2,Economic,System,P
+12: LSGI001,Local Self Government Institutions,State of Kerala,L2,Local Governance,System,P
+13: PSC001,Public Service Commission,Oversight & Accountability System,L3,Oversight,Commission,P
+14: LOK001,Lokayukta,Oversight & Accountability System,L3,Oversight,Institution,P
+15: HRC001,Human Rights Commission,Oversight & Accountability System,L3,Oversight,Commission,P
+16: REG002,Regulatory Bodies,Policy & Regulatory System,L3,Regulatory,Body,P
+17: COM001,Commissions,Policy & Regulatory System,L3,Regulatory,Institution,P
+18: AUT001,Autonomous Institutions,Development & Planning System,L3,Development,Institution,P
+19: PLAN001,State Planning Board,Development & Planning System,L3,Planning,Board,P
+20: PSU001,Public Sector Undertakings,Economic Implementat
+<truncated 45283 bytes>
+ce & Asset Management Division,L6,Public Works,Unit,P
+625: PWD402,Public Infrastructure Asset Management Unit,Maintenance & Asset Management Division,L6,Public Works,Unit,P
+626: PWD403,Infrastructure Lifecycle Management Unit,Maintenance & Asset Management Division,L6,Public Works,Unit,P
+627: PWD501,Project Planning Unit,Project Planning & Design Division,L6,Public Works,Unit,P
+628: PWD502,Engineering Design Unit,Project Planning & Design Division,L6,Public Works,Unit,P
+629: PWD503,Technical Feasibility Assessment Unit,Project Planning & Design Division,L6,Public Works,Unit,P
+630: PWD601,Construction Quality Assurance Unit,Quality Control & Technical Standards Division,L6,Public Works,Unit,P
+631: PWD602,Materials Testing Unit,Quality Control & Technical Standards Division,L6,Public Works,Unit,P
+632: PWD603,Engineering Standards Compliance Unit,Quality Control & Technical Standards Division,L6,Public Works,Unit,P
+633: PWD701,Traffic Engineering Unit,Traffic Engineering & Road Safety Division,L6,Public Works,Unit,P
+634: PWD702,Road Safety Management Unit,Traffic Engineering & Road Safety Division,L6,Public Works,Unit,P
+635: PWD703,Traffic Impact Assessment Unit,Traffic Engineering & Road Safety Division,L6,Public Works,Unit,P
+636: PWD801,Contract Administration Unit,Contracts & Procurement Division,L6,Public Works,Unit,P
+637: PWD802,Procurement Management Unit,Contracts & Procurement Division,L6,Public Works,Unit,P
+638: PWD803,Tender Evaluation & Compliance Unit,Contracts & Procurement Division,L6,Public Works,Unit,P
+639: HLT100,Public Health Division,Health & Family Welfare Department,L6,Health,Division,P
+640: HLT200,Medical Services Division,Health & Family Welfare Department,L6,Health,Division,P
+641: HLT300,Disease Prevention & Control Division,Health & Family Welfare Department,L6,Health,Division,P
+642: HLT400,Family Welfare Division,Hea
+<truncated 13021 bytes>
+
+NOTE: The output was truncated because it was too long. Use a more targeted query or a smaller range to get the information you need.

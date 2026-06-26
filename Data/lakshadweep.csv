@@ -1,0 +1,49 @@
+Node ID,Node Name,Parent ID,Level,Legend / Classification
+IND_LKD_001,Lakshadweep Union Territory,,1,Root Entity
+IND_POI_001,President of India,IND_LKD_001,2,Top-Level Governance Bodies
+IND_MHA_001,Ministry of Home Affairs,IND_POI_001,3,Constitutional Governance
+IND_ADM_001,Administrator,IND_MHA_001,4,Constitutional & Political Offices
+IND_ADV_001,Advisor to Administrator,IND_ADM_001,5,Executive Leadership
+IND_SEC_001,Lakshadweep Secretariat,IND_ADV_001,5,Administrative Headquarters
+IND_PSHF_001,Principal Secretary - Home & Finance,IND_SEC_001,6,Senior Administrative Officers
+IND_FIN_001,Finance Department,IND_PSHF_001,7,Government Departments
+IND_HOME_001,Home Department,IND_PSHF_001,7,Government Departments
+IND_POL_001,Police Department,IND_HOME_001,8,Police Administration
+IND_MP_001,Marine Police,IND_POL_001,9,Police Units
+IND_PS_001,Police Stations,IND_POL_001,9,Police Units
+IND_SRD_001,Secretary - Revenue & Disaster Management,IND_SEC_001,6,Senior Administrative Officers
+IND_REV_001,Revenue Department,IND_SRD_001,7,Government Departments
+IND_DM_001,Disaster Management,IND_SRD_001,7,Government Departments
+IND_COL_001,Collector-cum-District Magistrate,IND_REV_001,8,District Administration
+IND_SDO_001,Sub-Divisional Officers,IND_COL_001,9,District Administration
+IND_DC_001,Deputy Collectors,IND_COL_001,9,District Administration
+IND_SPAN_001,Secretary - Panchayats,IND_SEC_001,6,Senior Administrative Officers
+IND_DOP_001,Department of Panchayats,IND_SPAN_001,7,Government Departments
+<truncated 525 bytes>
+D_DP_001,10,Island Panchayats
+IND_KAV_001,Kavaratti,IND_DP_001,10,Island Panchayats
+IND_KIL_001,Kiltan,IND_DP_001,10,Island Panchayats
+IND_MIN_001,Minicoy,IND_DP_001,10,Island Panchayats
+IND_SOD_001,Secretary - Other Departments,IND_SEC_001,6,Senior Administrative Officers
+IND_PWR_001,Power Department,IND_SOD_001,7,Government Departments
+IND_EDU_001,Education Department,IND_SOD_001,7,Government Departments
+IND_PSA_001,"Port, Shipping & Aviation",IND_SOD_001,7,Government Departments
+IND_FIS_001,Fisheries Department,IND_SOD_001,7,Government Departments
+IND_HEA_001,Health Department,IND_SOD_001,7,Government Departments
+IND_TOU_001,Tourism Department,IND_SOD_001,7,Government Departments
+IND_ENV_001,Environment & Forest,IND_SOD_001,7,Government Departments
+IND_AGR_001,Agriculture Department,IND_SOD_001,7,Government Departments
+IND_PWD_001,Public Works Department,IND_SOD_001,7,Government Departments
+IND_AH_001,Animal Husbandry,IND_SOD_001,7,Government Departments
+IND_IT_001,Information Technology,IND_SOD_001,7,Government Departments
+IND_IND_001,Industries Department,IND_SOD_001,7,Government Departments
+IND_LAB_001,Labour Employment & Training,IND_SOD_001,7,Government Departments
+IND_ELE_001,Election Department,IND_SOD_001,7,Government Departments
+IND_PAO_001,Pay & Accounts Office,IND_SOD_001,7,Government Departments
+IND_PRS_001,Printing & Stationery,IND_SOD_001,7,Government Departments
+IND_IRB_001,India Reserve Battalion,IND_SOD_001,7,Government Agencies
+IND_JUD_001,Judicial Administration,IND_ADM_001,5,Judiciary
+IND_DSC_001,District & Sessions Court,IND_JUD_001,6,Judicial Institution
+IND_SUB_001,Subordinate Courts,IND_DSC_001,7,Judicial Units
+IND_PSU_001,Government Undertakings,IND_ADM_001,5,Government Corporations
+IND_LDCL_001,Lakshadweep Development Corporation Ltd,IND_PSU_001,6,Government Corporation

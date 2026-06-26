@@ -1,0 +1,98 @@
+﻿Step_ID,Service_ID,Step_No,Step_Name,Actor,Office,Action,System
+P001,S001,1,Application Submission,Citizen,Online Portal / Sub Registrar Office,Submit registration request,e-Registration System
+P002,S001,2,Document Verification,Clerk,Sub Registrar Office,Verify documents & ownership proof,Manual + Registry System
+P003,S001,3,Field Verification,Village Officer,Property Location,Physical verification of land/property,Revenue Inspection
+P004,S001,4,Stamp Duty Calculation & Payment,Citizen ,Treasury / Online Portal,Pay required stamp duty & fees,Payment System
+P005,S001,5,Approval Review,Sub Registrar,Sub Registrar Office,Final review and approval decision,Government Registry System
+P006,S001,6,Registration Entry,Clerk,Sub Registrar Office,Enter data into official land registry,Digital Land Records
+P007,S001,7,Final Record Update,Sub Registrar,Revenue Department Database,Update ownership record,Land Information System
+,,,,,,,
+T001,S002,1,Application Submission,Business Owner,Municipality Portal / Office,Submit trade license application,e-Governance Portal
+T002,S002,2,Document Verification,Clerk,Municipality Office,Verify submitted documents,License Management System
+T003,S002,3,Site Inspection,Health Inspector / Field Officer,Business Premises,Inspect business location,Inspection Management System
+T004,S002,4,Fee Payment,Citizen,Municipality Portal / Treasury,Pay license fee,Payment System
+T005,S002,5,Approval Review,Municipal Secretary,Municipality Office,Review application and inspection report,Municipal Administration System
+T006,S002,6,License Generation,Clerk,Municipality Office,Generate trade license certificate,License Management System
+T007,S002,7,License Issuance,Municipal Secretary,Municipality Office,Issue approved trade license,Citizen Services Portal
+B001,S003,1,Application Submission,Citizen,Municipality Portal / Office,Submit building permit application,e-Governance Portal
+B002,S003,2,Document Verification,Clerk,Municipality Office,Verify submitted documents,Permit Processing System
+B003,S003,3,Technical Review,Engineer,Engineering Section,Review building plan,Building Review System
+B004,S003,4,Site Inspection,Engineer / Overseer,Property Site,Conduct site inspection,Inspection Management System
+B005,S003,5,Approval Review,Municipal Secretary,Municipality Office,Review application and inspection report,Municipal Administration System
+B006,S003,6,Permit Generation,Clerk,Municipality Office,Generate permit certificate,Permit Issuance System
+B007,S003,7,Permit Issuance,Municipal Secretary,Municipality Office,Issue approved building permit,Citizen Services Portal
+,,,,,,,
+C001,S004,1,Name Reservation Application,Applicant,MCA Portal,Apply for company name reservation,MCA Portal
+C002,S004,2,Document Submission,Applicant,MCA Portal,Submit incorporation documents,MCA Portal
+C003,S004,3,Document Verification,ROC Officer,Registrar of Companies,Verify incorporation documents,MCA Registry System
+C004,S004,4,Approval Review,ROC Officer,Registrar of Companies,Review application for compliance,MCA Registry System
+C005,S004,5,Certificate Generation,ROC System,Registrar of Companies,Generate Certificate of Incorporation,MCA System
+C006,S004,6,Company Registration Completion,Applicant,MCA Portal,Receive registration certificate,MCA Portal
+G001,S005,1,Application Submission,Applicant,GST Portal,Submit GST registration application,GSTN System
+G002,S005,2,Document Upload,Applicant,GST Portal,Upload required documents,GSTN System
+G003,S005,3,Application Verification,GST Officer,GST Department,Verify application and documents,GSTN System
+G004,S005,4,Clarification Request (if required),GST Officer / Applicant,GST Portal,Provide additional information,GSTN System
+G005,S005,5,Approval Review,GST Officer,GST Department,Approve GST registration,GSTN System
+G006,S005,6,GSTIN Generation,GST System,GST Portal,Generate GST Identification Number,GSTN System
+G007,S005,7,Registration Certificate Issuance,GST System,GST Portal,Issue GST Registration Certificate,GSTN System
+U001,S006,1,Registration Application,Applicant,UDYAM Portal,Submit MSME registration application,UDYAM System
+U002,S006,2,Aadhaar Verification,Applicant / System,UDYAM Portal,Verify Aadhaar details,UIDAI Integration
+U003,S006,3,PAN Verification,System,UDYAM Portal,Verify PAN details,Income Tax System
+U004,S006,4,Business Information Validation,MSME System,UDYAM Portal,Validate enterprise information,UDYAM System
+U005,S006,5,Registration Approval,MSME System,UDYAM Portal,Approve MSME registration,UDYAM System
+U006,S006,6,Certificate Generation,MSME System,UDYAM Portal,Generate UDYAM certificate,UDYAM System
+F001,S007,1,Application Submission,Applicant,Fire Department Portal / Office,Submit Fire NOC application,Fire Services System
+F002,S007,2,Document Verification,Fire Officer,District Fire Office,Verify submitted documents,Fire Services System
+F003,S007,3,Site Inspection Scheduling,Fire Officer,District Fire Office,Schedule site inspection,Inspection Management System
+F004,S007,4,Fire Safety Inspection,Fire Officer,Business Premises,Inspect fire safety measures,Inspection Management System
+F005,S007,5,Compliance Review,Station Officer,District Fire Office,Review inspection findings,Fire Services System
+F006,S007,6,Approval Decision,Divisional Officer,Fire Department,Approve or reject application,Fire Services System
+F007,S007,7,NOC Issuance,Fire Department,Fire Portal,Generate and issue Fire NOC,Citizen Services Portal
+PC001,S008,1,Application Submission,Applicant,KSPCB Portal,Submit pollution clearance application,KSPCB Online System
+PC002,S008,2,Document Verification,Environmental Engineer,Regional Pollution Control Office,Verify submitted documents,KSPCB Management System
+PC003,S008,3,Site Inspection Scheduling,Environmental Engineer,Regional Pollution Control Office,Schedule environmental inspection,Inspection Management System
+PC004,S008,4,Environmental Inspection,Environmental Engineer,Business Premises,Conduct site inspection,Inspection Management System
+PC005,S008,5,Compliance Evaluation,Pollution Control Officer,KSPCB Office,Assess environmental compliance,Environmental Monitoring System
+PC006,S008,6,Approval Decision,Regional Officer,KSPCB Office,Approve or reject application,KSPCB Management System
+PC007,S008,7,Clearance Certificate Issuance,KSPCB System,KSPCB Portal,Generate pollution clearance certificate,Citizen Services Portal
+FL001,S009,1,Application Submission,Applicant,Factories Department Portal,Submit factory license application,Factory Licensing System
+FL002,S009,2,Document Verification,Inspector of Factories,District Factories Office,Verify submitted documents,Factory Licensing System
+FL003,S009,3,Site Inspection Scheduling,Inspector of Factories,District Factories Office,Schedule factory inspection,Inspection Management System
+FL004,S009,4,Factory Inspection,Inspector of Factories,Factory Premises,Inspect workplace safety and compliance,Inspection Management System
+FL005,S009,5,Compliance Review,Deputy Chief Inspector,Factories Department,Review inspection findings,Factory Licensing System
+FL006,S009,6,Approval Decision,Chief Inspector of Factories,Factories Department,Approve or reject application,Factory Licensing System
+FL007,S009,7,License Issuance,Factories Department,Online Portal,Generate and issue factory license,Citizen Services Portal
+EC001,S010,1,Application Submission,Applicant,KSEB Portal / Section Office,Submit electricity connection application,KSEB Consumer System
+EC002,S010,2,Document Verification,Assistant Engineer,KSEB Section Office,Verify submitted documents,KSEB Consumer System
+EC003,S010,3,Site Inspection Scheduling,Assistant Engineer,KSEB Section Office,Schedule site inspection,Inspection Management System
+EC004,S010,4,Site Inspection,Overseer / Engineer,Premises Location,Verify electrical requirements,Inspection Management System
+EC005,S010,5,Estimate Preparation,Assistant Engineer,KSEB Section Office,Prepare connection estimate and charges,KSEB Consumer System
+EC006,S010,6,Fee Payment,Applicant,KSEB Portal,Pay connection charges,Payment System
+EC007,S010,7,Connection Approval,Assistant Executive Engineer,KSEB Office,Approve electricity connection,KSEB Consumer System
+EC008,S010,8,Service Connection Installation,KSEB Technical Team,Premises Location,Install electricity connection,Field Service System
+EC009,S010,9,Consumer Activation,KSEB System,KSEB Portal,Generate consumer number and activate service,KSEB Consumer System
+WC001,S011,1,Application Submission,Applicant,KWA Portal / Section Office,Submit water connection application,KWA Consumer System
+WC002,S011,2,Document Verification,Junior Engineer,KWA Section Office,Verify submitted documents,KWA Consumer System
+WC003,S011,3,Site Inspection Scheduling,Assistant Engineer,KWA Section Office,Schedule site inspection,Inspection Management System
+WC004,S011,4,Site Inspection,Overseer / Engineer,Premises Location,Verify water supply feasibility,Inspection System
+WC005,S011,5,Estimate Preparation,Assistant Engineer,KWA Section Office,Prepare connection estimate and charges,KWA Billing System
+WC006,S011,6,Fee Payment,Applicant,KWA Portal,Pay connection charges,Payment System
+WC007,S011,7,Approval,Executive Engineer,KWA Office,Approve water connection,KWA Consumer System
+WC008,S011,8,Connection Installation,KWA Technical Team,Premises Location,Install water connection,Field Service System
+WC009,S011,9,Consumer Activation,KWA System,KWA Portal,Generate consumer ID and activate service,KWA Consumer System
+FS001,S012,1,Application Submission,Food Business Operator,FSSAI Portal,Submit license application,FoSCoS System
+FS002,S012,2,Document Verification,Food Safety Officer,District Office,Verify documents,FoSCoS System
+FS003,S012,3,Inspection Scheduling,Designated Officer,District Office,Schedule inspection,Inspection System
+FS004,S012,4,Facility Inspection,Food Safety Officer,Business Premises,Inspect hygiene & compliance,Inspection System
+FS005,S012,5,Report Preparation,Food Safety Officer,Office,Prepare inspection report,FoSCoS System
+FS006,S012,6,License Approval,Designated Officer,District Office,Approve license,FoSCoS System
+FS007,S012,7,Fee Payment,Applicant,Portal,Pay license fee,Payment System
+FS008,S012,8,License Issuance,FSSAI System,Portal,Issue digital license,FoSCoS System
+SE001,S013,1,Application Submission,Employer,Labour Portal,Submit registration application,Labour Registration System
+SE002,S013,2,Document Verification,Labour Inspector,Labour Office,Verify documents,Labour System
+SE003,S013,3,Inspection Scheduling,Inspector,Labour Office,Schedule workplace inspection,Inspection System
+SE004,S013,4,Workplace Inspection,Labour Inspector,Establishment Site,Verify compliance,Inspection System
+SE005,S013,5,Report Preparation,Inspector,Office,Prepare inspection report,Labour System
+SE006,S013,6,Registration Approval,Assistant Labour Officer,Labour Office,Approve registration,Labour System
+SE007,S013,7,Fee Payment,Employer,Portal,Pay registration fee,Payment System
+SE008,S013,8,Certificate Issuance,Labour Department System,Portal,Issue registration certificate,Labour System

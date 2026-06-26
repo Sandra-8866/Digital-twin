@@ -1,0 +1,45 @@
+node_id,node_name,parent_id,level,legend
+IND_ANI_001,President of India,,0,Constitutional Authority
+IND_ANI_002,Ministry of Home Affairs,IND_ANI_001,1,Executive Leadership
+IND_ANI_003,"Lieutenant Governor / Administrator, Andaman & Nicobar Islands",IND_ANI_002,2,Executive Leadership
+IND_ANI_004,Civil Administration,IND_ANI_003,3,Governance Domain
+IND_ANI_005,Security & Law Enforcement,IND_ANI_003,3,Governance Domain
+IND_ANI_006,Local Governance,IND_ANI_003,3,Governance Domain
+IND_ANI_007,Election Administration,IND_ANI_003,3,Governance Domain
+IND_ANI_008,Judicial Administration,IND_ANI_003,3,Governance Domain
+IND_ANI_009,Government Undertakings / Boards,IND_ANI_003,3,Governance Domain
+IND_ANI_010,Chief Secretary,IND_ANI_004,4,Civil Administration
+IND_ANI_011,Andaman & Nicobar Police,IND_ANI_005,4,Security Administration
+IND_ANI_012,Fire & Emergency Services,IND_ANI_005,4,Security Administration
+IND_ANI_013,Prisons / Correctional Administration,IND_ANI_005,4,Security Administration
+IND_ANI_014,"Directorate of RD, PRIs & Urban Local Bodies",IND_ANI_006,4,Local Governance
+IND_ANI_015,"Chief Electoral Officer, A&N Islands",IND_ANI_007,4,Election Administration
+IND_ANI_016,"High Court at Calcutta, Jurisdiction over A&N Islands",IND_ANI_008,4,Judicial Administration
+IND_ANI_017,"District & Sessions Court, South Andaman",IND_ANI_008,4,Judicial Administration
+IND_ANI_018,ANIIDCO,IND_ANI_009,4,Government Undertakings
+IND_ANI_019,Port Management Board,IND_ANI_009,4,Government 
+<truncated 4732 bytes>
+ND_ANI_076,Cash / Accounts,IND_ANI_034,7,General Administration Group
+IND_ANI_077,District Administration,IND_ANI_044,8,Territorial Administration
+IND_ANI_078,South Andaman District,IND_ANI_077,9,Territorial Administration
+IND_ANI_079,North & Middle Andaman District,IND_ANI_077,9,Territorial Administration
+IND_ANI_080,Nicobar District,IND_ANI_077,9,Territorial Administration
+IND_ANI_081,"Deputy Commissioner, South Andaman",IND_ANI_078,10,Territorial Administration
+IND_ANI_082,"Deputy Commissioner, North & Middle Andaman",IND_ANI_079,10,Territorial Administration
+IND_ANI_083,"Deputy Commissioner, Nicobar",IND_ANI_080,10,Territorial Administration
+IND_ANI_084,South Andaman Sub-Division,IND_ANI_081,11,Territorial Administration
+IND_ANI_085,Mayabunder Sub-Division,IND_ANI_082,11,Territorial Administration
+IND_ANI_086,Rangat Sub-Division,IND_ANI_082,11,Territorial Administration
+IND_ANI_087,Diglipur Sub-Division,IND_ANI_082,11,Territorial Administration
+IND_ANI_088,Car Nicobar Sub-Division,IND_ANI_083,11,Territorial Administration
+IND_ANI_089,Nancowry Sub-Division,IND_ANI_083,11,Territorial Administration
+IND_ANI_090,Great Nicobar Sub-Division,IND_ANI_083,11,Territorial Administration
+IND_ANI_091,Port Blair Tehsil,IND_ANI_084,12,Territorial Administration
+IND_ANI_092,Ferrargunj Tehsil,IND_ANI_084,12,Territorial Administration
+IND_ANI_093,Little Andaman Tehsil,IND_ANI_084,12,Territorial Administration
+IND_ANI_094,Mayabunder Tehsil,IND_ANI_085,12,Territorial Administration
+IND_ANI_095,Rangat Tehsil,IND_ANI_086,12,Territorial Administration
+IND_ANI_096,Diglipur Tehsil,IND_ANI_087,12,Territorial Administration
+IND_ANI_097,Car Nicobar Block,IND_ANI_088,12,Territorial Administration
+IND_ANI_098,Nancowry Block,IND_ANI_089,12,Territorial Administration
+IND_ANI_099,Campbell Bay Block,IND_ANI_090,12,Territorial Administration

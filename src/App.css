@@ -1,0 +1,117 @@
+/* Custom dashboard utility animations */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(8px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes pulse-glow {
+  0%, 100% { opacity: 0.6; transform: scale(1); }
+  50% { opacity: 0.9; transform: scale(1.05); }
+}
+
+@keyframes scanline {
+  0% { transform: translateY(-100%); }
+  100% { transform: translateY(100%); }
+}
+
+.animate-fade-in {
+  animation: fadeIn 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+/* Technical Grid Pattern */
+.tech-grid {
+  background-size: 30px 30px;
+  background-image: 
+    linear-gradient(to right, rgba(255, 255, 255, 0.02) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
+}
+
+.tech-grid-light {
+  background-size: 30px 30px;
+  background-image: 
+    linear-gradient(to right, rgba(15, 41, 66, 0.025) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(15, 41, 66, 0.025) 1px, transparent 1px);
+}
+
+/* Glassmorphism Panels */
+.glass-panel {
+  background: rgba(10, 15, 30, 0.7);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.glass-panel-hover:hover {
+  background: rgba(15, 23, 42, 0.85);
+  border-color: rgba(255, 255, 255, 0.15);
+  box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.5);
+  transform: translateY(-2px);
+}
+
+.glass-panel-light {
+  background: rgba(255, 255, 255, 0.75);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(15, 41, 66, 0.08);
+}
+
+.glass-panel-light-hover:hover {
+  background: rgba(255, 255, 255, 0.95);
+  border-color: rgba(15, 41, 66, 0.15);
+  box-shadow: 0 10px 25px -5px rgba(15, 41, 66, 0.06);
+  transform: translateY(-2px);
+}
+
+/* Saffron / Green / Navy Glows */
+.saffron-glow {
+  filter: drop-shadow(0 0 15px rgba(255, 153, 51, 0.15));
+}
+
+.green-glow {
+  filter: drop-shadow(0 0 15px rgba(19, 136, 8, 0.15));
+}
+
+.glow-overlay-saffron {
+  background: radial-gradient(circle, rgba(255, 153, 51, 0.08) 0%, transparent 70%);
+}
+
+.glow-overlay-green {
+  background: radial-gradient(circle, rgba(19, 136, 8, 0.08) 0%, transparent 70%);
+}
+
+.glow-overlay-indigo {
+  background: radial-gradient(circle, rgba(99, 102, 241, 0.1) 0%, transparent 70%);
+}
+
+.glow-overlay-saffron-light {
+  background: radial-gradient(circle, rgba(255, 153, 51, 0.04) 0%, transparent 70%);
+}
+
+.glow-overlay-green-light {
+  background: radial-gradient(circle, rgba(19, 136, 8, 0.04) 0%, transparent 70%);
+}
+
+.glow-overlay-indigo-light {
+  background: radial-gradient(circle, rgba(99, 102, 241, 0.05) 0%, transparent 70%);
+}
+
+/* Scanline and Telemetry Ticker styles */
+.scanline::after {
+  content: " ";
+  display: block;
+  position: absolute;
+  top: 0; left: 0; bottom: 0; right: 0;
+  background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%), linear-gradient(90deg, rgba(255, 0, 0, 0.06), rgba(0, 255, 0, 0.02), rgba(0, 0, 255, 0.06));
+  z-index: 2;
+  background-size: 100% 2px, 3px 100%;
+  pointer-events: none;
+}
+
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
