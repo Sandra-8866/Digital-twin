@@ -91,10 +91,15 @@ export const NodeDetailsPanel: React.FC = () => {
             <Building className="w-6 h-6" />
           </div>
           <div>
-            <span className="text-[10px] text-slate-400 font-extrabold uppercase tracking-widest block">
-              {activeNode.level ? `${activeNode.level} Unit` : 'Administrative Branch'}
+            <span className="text-[10px] text-slate-400 font-extrabold uppercase tracking-widest block leading-none">
+              {activeNode.type ? `${activeNode.type.toUpperCase()} • Level ${activeNode.level || ''}` : 'Administrative Branch'}
             </span>
-            <h2 className="text-lg font-black text-slate-800 leading-snug mt-0.5">{activeNode.name}</h2>
+            <h2 className="text-lg font-black text-slate-800 leading-snug mt-1.5">{activeNode.name}</h2>
+            {parentNode && (
+              <span className="text-[9px] text-indigo-600 font-bold uppercase tracking-wider block mt-1.5 leading-none">
+                Parent: {parentNode.name}
+              </span>
+            )}
           </div>
         </div>
 
@@ -208,22 +213,42 @@ export const NodeDetailsPanel: React.FC = () => {
                 <div
                   key={srv.id}
                   onClick={() => selectService(srv.id)}
-                  className="p-4 bg-white border border-slate-200 hover:border-blue-300 rounded-2xl cursor-pointer hover:shadow-xs hover:translate-y-[-1px] transition duration-150 flex items-center justify-between gap-4 group"
+                  className="p-4.5 bg-white border border-slate-200/80 hover:border-indigo-300 rounded-2xl cursor-pointer hover:shadow-xs hover:translate-y-[-1px] transition duration-150 flex flex-col gap-3 group relative overflow-hidden text-left"
                 >
-                  <div className="min-w-0 flex items-center gap-3">
-                    <div className="w-9 h-9 rounded-xl bg-blue-50/50 flex items-center justify-center text-blue-600 group-hover:bg-blue-100 group-hover:text-blue-700 flex-shrink-0 transition">
-                      <FileText className="w-4.5 h-4.5" />
+                  <div className="flex justify-between items-start gap-4">
+                    <div className="flex items-center gap-2.5 min-w-0">
+                      <div className="w-8 h-8 rounded-xl bg-blue-50 flex items-center justify-center text-blue-600 shrink-0 group-hover:bg-blue-100 transition">
+                        <FileText className="w-4.5 h-4.5" />
+                      </div>
+                      <div className="min-w-0">
+                        <h4 className="text-xs font-extrabold text-slate-800 truncate leading-snug group-hover:text-indigo-900">
+                          {srv.name}
+                        </h4>
+                        <span className="text-[8px] text-slate-400 uppercase tracking-widest font-semibold mt-0.5 block leading-none">
+                          Service ID: {srv.id}
+                        </span>
+                      </div>
                     </div>
-                    <div className="min-w-0">
-                      <h4 className="text-xs font-bold text-slate-800 truncate leading-snug group-hover:text-blue-900">
-                        {srv.name}
-                      </h4>
-                      <p className="text-[10px] text-slate-400 font-medium truncate mt-1 leading-normal">
-                        Service provided by {srv.office || srv.department}
-                      </p>
+                    {/* Status Badge */}
+                    <span className="text-[8.5px] px-2 py-0.5 border border-emerald-100 bg-emerald-50 text-emerald-600 rounded-full font-bold uppercase tracking-wider scale-90">
+                      Active
+                    </span>
+                  </div>
+
+                  <p className="text-[11px] text-slate-500 leading-normal font-medium line-clamp-2">
+                    {srv.description}
+                  </p>
+
+                  <div className="flex flex-col gap-1 border-t border-slate-100 pt-2.5 text-[9.5px] text-slate-400 font-semibold">
+                    <div className="flex justify-between items-center">
+                      <span>Department:</span>
+                      <span className="text-slate-600 font-bold truncate max-w-[170px]">{srv.department}</span>
+                    </div>
+                    <div className="flex justify-between items-center">
+                      <span>Office:</span>
+                      <span className="text-slate-600 font-bold truncate max-w-[170px]">{srv.office}</span>
                     </div>
                   </div>
-                  <ChevronRight className="w-4 h-4 text-slate-400 group-hover:text-blue-600 transition flex-shrink-0" />
                 </div>
               ))}
             </div>

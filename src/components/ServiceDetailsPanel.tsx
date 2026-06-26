@@ -1,8 +1,41 @@
 import React, { useState } from 'react';
 import { useGovernanceStore } from '../store/governanceStore';
-import { Layers, FileText, UserCheck, MapPin, Scale, Package } from 'lucide-react';
+import { Layers, FileText, UserCheck, MapPin, Scale, Package, Clock, DollarSign } from 'lucide-react';
 
 type TabType = 'workflow' | 'documents' | 'officers' | 'laws' | 'locations' | 'outputs';
+
+const getServiceMetadata = (serviceId: string) => {
+  switch (serviceId) {
+    case 'S001': // Property Registration
+      return { fees: '1% of property value (max ₹50,000) + 2% stamp duty', processingTime: '15 working days', relatedForms: 'Form 1 (Registration Application), Form 32A (Stamp Duty Declaration)' };
+    case 'S002': // Trade License
+      return { fees: '₹1,500 - ₹5,000 (dependent on business scale)', processingTime: '7-10 working days', relatedForms: 'Form I (Trade License Application), Form II (Site Declaration)' };
+    case 'S003': // Building Permit
+      return { fees: '₹2,000 application fee + site inspection charges', processingTime: '30 working days', relatedForms: 'Form A (Building Permit Application), Technical Specification Sheet' };
+    case 'S004': // Company Registration
+      return { fees: '₹1,000 registration fee + stamp duty (state-dependent)', processingTime: '5-7 working days', relatedForms: 'SPICe+ (Form INC-32), e-MOA (INC-33), e-AOA (INC-34)' };
+    case 'S005': // GST Registration
+      return { fees: 'Free (Government Portal)', processingTime: '3-5 working days', relatedForms: 'Form GST REG-01 (Application), Form GST REG-06 (Certificate)' };
+    case 'S006': // UDYAM Registration
+      return { fees: 'Free (Government Portal)', processingTime: 'Instant (1-2 days processing)', relatedForms: 'UDYAM Online Registration Form' };
+    case 'S007': // Fire NOC
+      return { fees: '₹500 application fee + inspection cost', processingTime: '15 working days', relatedForms: 'Form A (Fire Safety Declaration), NOC Request Sheet' };
+    case 'S008': // Pollution Clearance
+      return { fees: '₹10,000 (dependent on industry category - Red/Orange/Green)', processingTime: '45 working days', relatedForms: 'Form I (Consent to Establish/Operate), Environmental Compliance Report' };
+    case 'S009': // Factory License
+      return { fees: '₹2,500 - ₹15,000 (dependent on worker count & power load)', processingTime: '30 working days', relatedForms: 'Form No. 2 (License Application), Factory Compliance Checklist' };
+    case 'S010': // Electricity Connection
+      return { fees: '₹1,200 installation charges + security deposit', processingTime: '7 working days', relatedForms: 'Form A (New Electrical Service Request), Wiring Diagram Layout' };
+    case 'S011': // Water Connection
+      return { fees: '₹800 installation charges + security deposit', processingTime: '10 working days', relatedForms: 'Form W-1 (Water Supply Connection Request), Property Tax Receipt' };
+    case 'S012': // FSSAI License
+      return { fees: '₹2,000 - ₹5,000 (dependent on food business turnover)', processingTime: '15-20 working days', relatedForms: 'Form B (FSSAI Licensing Application), Food Safety Declaration' };
+    case 'S013': // Shop & Establishment Registration
+      return { fees: '₹500 - ₹2,500 (dependent on employee count)', processingTime: '5 working days', relatedForms: 'Form A (Shop Registration Application), Rent/Deed Agreement' };
+    default:
+      return { fees: '₹500 standard administrative charges', processingTime: '10-15 working days', relatedForms: 'Standard Service Request Form, ID Proof Checklist' };
+  }
+};
 
 export const ServiceDetailsPanel: React.FC = () => {
   const {
@@ -21,6 +54,7 @@ export const ServiceDetailsPanel: React.FC = () => {
 
   // Resolve selected service details
   const activeService = services.find(s => s.id === selectedServiceId) || null;
+  const metadata = activeService ? getServiceMetadata(activeService.id) : null;
 
   // Filter relationship datasets for active service
   const serviceWorkflows = React.useMemo(() => {
@@ -94,6 +128,43 @@ export const ServiceDetailsPanel: React.FC = () => {
             <h3 className="text-base font-extrabold text-[#0f2942] leading-snug mt-1">{activeService.name}</h3>
             <p className="text-xs text-slate-500 leading-relaxed mt-2 font-medium">{activeService.description}</p>
           </div>
+
+          {/* Key Highlights Grid */}
+          {metadata && (
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+              <div className="p-3 bg-slate-50 border border-slate-200/50 rounded-xl flex items-center gap-2.5">
+                <Clock className="w-4 h-4 text-indigo-600 shrink-0" />
+                <div>
+                  <span className="text-[9px] text-slate-400 font-extrabold uppercase tracking-widest block leading-none">Processing Time</span>
+                  <span className="text-xs font-bold text-slate-700 block mt-1 leading-none">{metadata.processingTime}</span>
+                </div>
+              </div>
+              <div className="p-3 bg-slate-50 border border-slate-200/50 rounded-xl flex items-center gap-2.5">
+                <DollarSign className="w-4 h-4 text-emerald-600 shrink-0" />
+                <div>
+                  <span className="text-[9px] text-slate-400 font-extrabold uppercase tracking-widest block leading-none">Estimated Fees</span>
+                  <span className="text-xs font-bold text-slate-700 block mt-1 leading-none">{metadata.fees}</span>
+                </div>
+              </div>
+              <div className="p-3 bg-slate-50 border border-slate-200/50 rounded-xl flex items-center gap-2.5">
+                <MapPin className="w-4 h-4 text-amber-600 shrink-0" />
+                <div className="min-w-0">
+                  <span className="text-[9px] text-slate-400 font-extrabold uppercase tracking-widest block leading-none">Responsible Office</span>
+                  <span className="text-xs font-bold text-slate-700 block mt-1 leading-none truncate" title={activeService.office || activeService.department}>
+                    {activeService.office || activeService.department}
+                  </span>
+                </div>
+              </div>
+            </div>
+          )}
+
+          {/* Related Forms block */}
+          {metadata && (
+            <div className="p-4 bg-emerald-50/30 border border-emerald-100/50 rounded-2xl text-xs text-slate-600 leading-relaxed font-semibold">
+              <span className="text-[9px] text-emerald-700 font-extrabold uppercase tracking-widest block mb-1">Related Application Forms</span>
+              {metadata.relatedForms}
+            </div>
+          )}
 
           {/* Tab Swappers */}
           <div className="flex border-b border-slate-200/60 pb-0.5 text-xs overflow-x-auto gap-4 no-scrollbar">
