@@ -107,7 +107,10 @@ export const TreeNode: React.FC<TreeNodeProps> = ({ node, isFirst = true, isLast
     toggleExpandNode(node.id);
   };
 
-  const isRoot = activeRegionId === null || node.id === useGovernanceStore.getState().activeTreeData?.id;
+  const rootRegions = useGovernanceStore((state) => state.rootRegions);
+  const isRoot = activeRegionId === null
+    ? node.id === (rootRegions.find(r => r.type === 'country')?.id || rootRegions[0]?.id)
+    : node.id === useGovernanceStore.getState().activeTreeData?.id;
 
   const categoryColor = CATEGORY_COLORS[node.type] || CATEGORY_COLORS['office'];
 

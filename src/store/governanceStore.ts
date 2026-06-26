@@ -411,6 +411,8 @@ export const useGovernanceStore = create<GovernanceState>((set, get) => ({
         throw new Error('No regions found in ROOT_HIERARCHY.csv');
       }
 
+      const rootRegionId = parsedRegions.find(r => r.type === 'country')?.id || parsedRegions[0]?.id;
+
       set({
         services: parsedServices,
         workflows: parsedWorkflows,
@@ -423,7 +425,7 @@ export const useGovernanceStore = create<GovernanceState>((set, get) => ({
         activeRegionId: null,
         activeTreeData: null,
         selectedNodeId: null,
-        expandedNodeIds: [],
+        expandedNodeIds: rootRegionId ? [rootRegionId] : [],
         loading: false,
         logs: [
           {
@@ -531,11 +533,13 @@ export const useGovernanceStore = create<GovernanceState>((set, get) => ({
   },
 
   resetToSelector: () => {
+    const { rootRegions } = get();
+    const rootRegionId = rootRegions.find(r => r.type === 'country')?.id || rootRegions[0]?.id;
     set({
       activeRegionId: null,
       activeTreeData: null,
       selectedNodeId: null,
-      expandedNodeIds: []
+      expandedNodeIds: rootRegionId ? [rootRegionId] : []
     });
     get().addLog('Reset layout to Regional Hierarchy Selector.', 'info');
   },

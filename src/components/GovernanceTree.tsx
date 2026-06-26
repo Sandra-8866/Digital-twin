@@ -28,6 +28,7 @@ export const GovernanceTree: React.FC = () => {
   const activeTreeData = useGovernanceStore((state) => state.activeTreeData);
   const activeRegionId = useGovernanceStore((state) => state.activeRegionId);
   const visibleCategories = useGovernanceStore((state) => state.visibleCategories);
+  const rootRegions = useGovernanceStore((state) => state.rootRegions);
   const setExpandedNodeIds = (ids: string[]) => useGovernanceStore.setState({ expandedNodeIds: ids });
   const selectNode = useGovernanceStore((state) => state.selectNode);
 
@@ -35,6 +36,30 @@ export const GovernanceTree: React.FC = () => {
   const filteredTreeData = React.useMemo(() => {
     return getFilteredTree(activeTreeData, visibleCategories);
   }, [activeTreeData, visibleCategories]);
+
+  // Compute Region Selection Tree dynamically from ROOT_HIERARCHY.csv and visibleCategories
+  const selectorTreeData = React.useMemo(() => {
+    if (rootRegions.length === 0) return null;
+    const rootRegion = rootRegions.find(r => r.type === 'country') || rootRegions[0];
+    const isRootVisible = visibleCategories[rootRegion.type] !== false;
+
+    if (!isRootVisible) return null;
+
+    const childRegions = rootRegions.filter(r => r.id !== rootRegion.id && visibleCategories[r.type] !== false);
+
+    const tree: HierarchicalNode = {
+      id: rootRegion.id,
+      name: rootRegion.name,
+      type: rootRegion.type,
+      children: childRegions.map(r => ({
+        id: r.id,
+        name: r.name,
+        type: r.type,
+        children: []
+      }))
+    };
+    return tree;
+  }, [rootRegions, visibleCategories]);
 
   // Pan and Zoom States
   const [zoom, setZoom] = useState(1);
@@ -118,8 +143,6 @@ export const GovernanceTree: React.FC = () => {
     handleResetZoom();
   }, [activeRegionId]);
 
-  const rootRegions = useGovernanceStore((state) => state.rootRegions);
-
   if (activeRegionId !== null && !activeTreeData) {
     return (
       <div className="w-full h-[600px] bg-slate-50 flex items-center justify-center text-xs text-slate-400 border border-slate-200/50 rounded-2xl">
@@ -127,9 +150,6 @@ export const GovernanceTree: React.FC = () => {
       </div>
     );
   }
-
-  // Filter root regions dynamically based on active legend filters for Level 1 Selector
-  const visibleRegions = rootRegions.filter(region => visibleCategories[region.type] !== false);
 
   return (
     <div className="w-full bg-white border border-slate-200/60 rounded-2xl shadow-sm p-6 select-none animate-fade-in flex flex-col gap-4">
@@ -252,23 +272,11 @@ export const GovernanceTree: React.FC = () => {
           {/* Centering container offset */}
           <div className="-translate-x-1/2">
             {activeRegionId === null ? (
-              visibleRegions.length > 0 ? (
-                <div className="flex flex-row flex-wrap items-center justify-center gap-8 min-w-[900px] px-8">
-                  {visibleRegions.map((region) => {
-                    const nodeData: HierarchicalNode = {
-                      id: region.id,
-                      name: region.name,
-                      type: region.type,
-                      children: []
-                    };
-                    return (
-                      <TreeNode key={region.id} node={nodeData} />
-                    );
-                  })}
-                </div>
+              selectorTreeData ? (
+                <TreeNode node={selectorTreeData} />
               ) : (
-                <div className="text-xs text-slate-400 font-bold py-12 text-center w-[900px]">
-                  All regional categories are filtered out. Adjust legend settings to restore selector nodes.
+                <div className="text-xs text-slate-400 font-bold py-12 text-center w-[400px]">
+                  All categories are filtered out. Adjust legend settings to restore the selector tree.
                 </div>
               )
             ) : (
